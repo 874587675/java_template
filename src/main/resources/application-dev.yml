@@ -1,0 +1,135 @@
+server:
+  port: 8080 # 端口号
+
+spring:
+  datasource: #数据源配置
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.25.227.12:3306/java_template?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource #使用Druid连接池
+  redis: #redis配置
+    database: 0
+    host: 172.25.227.12
+    port: 6379
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+
+# 用户配置
+user:
+  password:
+    # 密码最大错误次数
+    maxRetryCount: 5
+    # 密码锁定时间 单位分钟
+    lockTime: 10
+
+knife4j:
+  enable: true #是否启用knife4j
+  
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl #日志打印
+  global-config:
+    db-config:
+      column-format: "%s" #数据库字段格式化
+      logic-delete-field: is_deleted # 全局逻辑删除字段名
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值
+      table-prefix: t_ # 表前缀
+      id-type: assign_uuid # 主键策略
+  mapper-locations: classpath*:/mapper/*.xml
+  
+
+token:
+  token-param:
+    expire-time: 1440 # 令牌有效期（单位：分钟）
+    refresh-min-time: 5 # 令牌有效期小于等于该时间时刷新令牌（单位：分钟）
+    header: Access-Token # 令牌自定义标识
+    secret: abcdefghijklmnopqrstuvwxyz1234567890 # 令牌密钥
+
+#阿里云相关配置(Access要在系统变量中设置)
+aliyun:
+  accessparams:
+    KeyId: ${ALIBABA_CLOUD_ACCESS_KEY_ID}
+    KeySecret: ${ALIBABA_CLOUD_ACCESS_KEY_SECRET}
+  smsparams:
+    UserPrincipalName: zgcbuild@1160848283821582.onaliyun.com
+    Password: q85238737
+    SignName: 个人博客张广成
+    TemplateCode: SMS_470400116
+    Endpoint: dysmsapi.aliyuncs.com
+    RegionId: cn-qingdao
+  ocrparams:
+    Endpoint: ocr-api.cn-hangzhou.aliyuncs.com
+    RegionId: cn-hangzhou
+
+#支付宝支付相关配置
+alipay:
+  payParams:
+    AppId: 9021000138628340
+    MerchantPrivateKey: ${ALIBABA_CLOUD_PAY_MERCHANT_PRIVATE_KEY}
+    AlipayPublicKey: ${ALIBABA_CLOUD_PAY_ALIPAY_PUBLIC_KEY}
+    GatewayUrl: https://openapi-sandbox.dl.alipaydev.com/gateway.do #沙箱环境
+    NotifyUrl: https://www.zgcbuild.top/  #异步通知地址
+    ReturnUrl: https://www.zgcbuild.top/pay/alipay/pc/return  #回调地址
+    SignType: RSA2  #签名类型
+    Charset: utf-8  #字符编码
+    Format: json  #返回格式
+    Version: 1.0  #版本号
+    #电脑PC支付：FAST_INSTANT_TRADE_PAY
+    #手机NATIVE支付：QUICK_WAP_WAY
+    #小程序JSAPI支付：JSAPI_PAY
+    ProductCode: QUICK_WAP_WAY #产品码 根据使用不同的支付场景更换产品码
+    
+
+#微信支付相关配置
+wxpay:
+  payParams:
+    MerchantId: 1702163339  # 商户号
+    AppId: wx203c9cbc919eba1c   #AppId
+    AppSecret: e22594079c985ece5959c1c44c087878
+    PrivateKeyPath: wx_vip/apiclient_key.pem
+    PrivateCertPath: wx_vip/apiclient_cert.pem
+    PublicCertPath: wx_vip/pub_key.pem
+    PublicId: PUB_KEY_ID_0117021633392024121800458300000077
+    MerchantSerialNumber: 19D32C4DBD65C396629A65CBAB7B4B4B0EF83500  #平台序列号
+    ApiV3Key: e22594079c985ece5959c1c44c087878      #v3密钥
+    #后期还是写到类里面，方便管理
+    NotifyUrl: https://www.zgcbuild.top/api/pay/wx/wxnotify
+    ReturnUrl: https://www.zgcbuild.top/api/pay/wx/wxreturn
+
+wechat:
+  miniapp:
+    app-id: wx203c9cbc919eba1c   #AppId
+    app-secret: e22594079c985ece5959c1c44c087878  #Secret密钥
+  mp:
+    app-id: wx203c9cbc919eba1c   #AppId
+    app-secret: e22594079c985ece5959c1c44c087878  #Secret密钥
+  open:
+    app-id: wx203c9cbc919eba1c   #AppId
+    app-secret: e22594079c985ece5959c1c44c087878  #Secret密钥
+
+
+#对象存储相关配置
+dromara:
+  x-file-storage: #文件存储配置
+    default-platform: minio-1 #默认使用的存储平台
+    thumbnail-suffix: ".min.jpg" #缩略图后缀，例如【.min.jpg】【.png】
+    aliyun-oss:
+      - platform: aliyun-oss-1 # 存储平台标识
+        enable-storage: true  # 启用存储
+        accessKey: ${ALIBABA_CLOUD_ACCESS_KEY_ID}
+        secretKey: ${ALIBABA_CLOUD_ACCESS_KEY_SECRET}
+        end-point: oss-cn-hangzhou.aliyuncs.com
+        bucket-name: zgcbuild
+        domain: https://zgcbuild.oss-cn-hangzhou.aliyuncs.com/ # 访问域名，注意“/”结尾，例如：https://abc.oss-cn-shanghai.aliyuncs.com/
+        base-path: zgcbuild/ # 基础路径
+    minio:
+      - platform: minio-1 # 存储平台标识
+        enable-storage: true  # 启用存储
+        access-key: dVleh6UoWg3E7dGNkD87
+        secret-key: 3i6oI5J6CeEdMsyCe4zpaOCTcyLJRK1JzPXx7ZYW
+        end-point: http://192.168.111.129:9000
+        bucket-name: zgcbuild
+        domain: http://192.168.111.129:9000/ # 访问域名

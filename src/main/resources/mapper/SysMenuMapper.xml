@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfg.java_template.business.mapper.SysMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dfg.java_template.business.entity.SysMenu">
+        <id column="menu_id" property="menuId" />
+        <result column="menu_name" property="menuName" />
+        <result column="parent_id" property="parentId" />
+        <result column="menu_sort" property="menuSort" />
+        <result column="menu_type" property="menuType" />
+        <result column="visible" property="visible" />
+        <result column="status" property="status" />
+        <result column="permission" property="permission" />
+        <result column="remark" property="remark" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="delete_time" property="deleteTime" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        menu_id, menu_name, parent_id, menu_sort, menu_type, visible, status, permission, remark, create_user_id, create_time, update_user_id, update_time, is_deleted, delete_time, version
+    </sql>
+    
+    <select id="selectMenuByUserId" resultType="java.lang.String">
+        select m.permission
+        from t_sys_menu as m
+        left join t_sys_role_menu as rm on m.menu_id = rm.menu_id
+        left join t_sys_user_role as ur on rm.role_id = ur.role_id
+        where ur.user_id = #{userId}
+        AND m.is_deleted = 0 AND rm.is_deleted = 0 AND ur.is_deleted = 0 AND m.status = 1 AND m.visible = 1
+    </select>
+</mapper>
