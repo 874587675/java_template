@@ -1,4 +1,4 @@
-package ${listPackage};
+package ${pagePackage};
 
 <#list table.importPackages as pkg>
     <#if
@@ -34,7 +34,7 @@ import java.io.Serial;
 @SuperBuilder
 @Data
 @ApiModel(value = "${moduleName}查询列表参数", description = "${moduleName}查询列表参数对象")
-public class ${entity}ListParam extends PageBO implements Serializable {
+public class ${entity}PageParam extends PageBO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
