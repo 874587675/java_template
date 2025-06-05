@@ -1,26 +1,26 @@
 package com.dfg.java_template.business.param.list;
 
-import com.dfg.java_template.business.param.page.bo.PageBO;
+import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.io.Serial;
+import lombok.*;
 import java.io.Serializable;
+import com.dfg.java_template.business.entity.SysMenu;
+import java.io.Serial;
 
 
 /**
 * 菜单权限列表参数对象
 * @author zgc
-* @since 2025-05-26 09:31:55
+* @since 2025-06-05 17:27:43
 */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ApiModel(value = "菜单权限查询列表参数", description = "菜单权限查询列表参数对象")
-public class SysMenuListParam  extends PageBO implements Serializable {
+public class SysMenuListParam implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

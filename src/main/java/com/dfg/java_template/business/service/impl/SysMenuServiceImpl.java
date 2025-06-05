@@ -8,6 +8,7 @@ import com.dfg.java_template.business.entity.SysMenu;
 import com.dfg.java_template.business.mapper.SysMenuMapper;
 import com.dfg.java_template.business.param.convertor.SysMenuConvertor;
 import com.dfg.java_template.business.param.list.SysMenuListParam;
+import com.dfg.java_template.business.param.page.SysMenuPageParam;
 import com.dfg.java_template.business.param.page.vo.PageVO;
 import com.dfg.java_template.business.param.query.SysMenuQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-
+import java.util.List;
 
 /**
 * <p>
@@ -28,13 +29,13 @@ import javax.annotation.Resource;
 * </p>
 *
 * @author zgc
-* @since 2025-05-22 18:49:29
+* @since 2025-06-05 17:27:43
 */
 @Service
 @Slf4j
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
-@Resource
-private SysMenuMapper sysMenuMapper;
+    @Resource
+    private SysMenuMapper sysMenuMapper;
 
     /**
     * 保存菜单权限
@@ -58,7 +59,6 @@ private SysMenuMapper sysMenuMapper;
         sysMenuMapper.updateById(SysMenuConvertor.UPDATE.updateParamToEntity(sysMenuUpdateParam));
     }
 
-
     /**
     * 查询菜单权限列表
     *
@@ -66,9 +66,26 @@ private SysMenuMapper sysMenuMapper;
     * @return 菜单权限VO列表
     */
     @Override
-    public PageVO<SysMenuVO> listSysMenu(SysMenuListParam sysMenuListParam){
+    public List<SysMenuVO> listSysMenu(SysMenuListParam sysMenuListParam){
         String sysMenuId = sysMenuListParam.getMenuId();
-        Page<SysMenu> page = page(new Page<>(sysMenuListParam.getPageNo(), sysMenuListParam.getPageSize()),
+        List<SysMenu> list =list(
+                new LambdaQueryWrapper<SysMenu>()
+                        .eq(ObjectUtil.isNotEmpty(sysMenuId), SysMenu::getMenuId, sysMenuId)
+                        .orderByDesc(SysMenu::getCreateTime)
+        );
+        return SysMenuConvertor.LIST.listEntityToListVO(list);
+    }
+
+    /**
+    * 分页查询菜单权限列表
+    *
+    * @param sysMenuPageParam 查询菜单权限列表参数
+    * @return 菜单权限VO列表
+    */
+    @Override
+    public PageVO<SysMenuVO> pageSysMenu(SysMenuPageParam sysMenuPageParam){
+        String sysMenuId = sysMenuPageParam.getMenuId();
+        Page<SysMenu> page = page(new Page<>(sysMenuPageParam.getPageNo(), sysMenuPageParam.getPageSize()),
                 new LambdaQueryWrapper<SysMenu>()
                         .eq(ObjectUtil.isNotEmpty(sysMenuId), SysMenu::getMenuId, sysMenuId)
                         .orderByDesc(SysMenu::getCreateTime)

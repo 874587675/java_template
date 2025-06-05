@@ -21,11 +21,11 @@ public class MybatisPlusGenerateCode {
         List<String> tableNames = new ArrayList<>();
 //        tableNames.add("t_user");
 //        
-//        tableNames.add("t_sys_user");
-//        tableNames.add("t_sys_role");
-//        tableNames.add("t_sys_user_role");
+        tableNames.add("t_sys_user");
+        tableNames.add("t_sys_role");
+        tableNames.add("t_sys_user_role");
         tableNames.add("t_sys_menu");   
-//        tableNames.add("t_sys_role_menu");
+        tableNames.add("t_sys_role_menu");
         
         generateCode(tableNames);
     }
@@ -94,13 +94,13 @@ public class MybatisPlusGenerateCode {
                             .formatServiceFileName("%sService") // 自定义 Service 文件名
                             .serviceImplTemplate("/templates/serviceImpl.java") // 设置 ServiceImpl 模板
                             .formatServiceImplFileName("%sServiceImpl") // 自定义 ServiceImpl 文件名
-                            .enableFileOverride() // 覆盖已生成文件
+//                            .enableFileOverride() // 覆盖已生成文件
 
                             // Controller 策略
                             .controllerBuilder().enableRestStyle() // 启用 REST 风格（@RestController）
                             .enableHyphenStyle() // URL 使用连字符（如 /user/list）
                             .formatFileName("%sController") // 自定义 Controller 文件名
-                            .enableFileOverride() // 覆盖已生成文件
+//                            .enableFileOverride() // 覆盖已生成文件
                     ;
                 })
                 // ========== 模板引擎 ==========

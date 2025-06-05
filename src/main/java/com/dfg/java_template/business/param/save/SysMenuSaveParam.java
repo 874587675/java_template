@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
 * 菜单权限新增参数对象
 * @author zgc
-* @since 2025-05-26 09:31:55
+* @since 2025-06-05 17:27:43
 */
 @AllArgsConstructor
 @NoArgsConstructor

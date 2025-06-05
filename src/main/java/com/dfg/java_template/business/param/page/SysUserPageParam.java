@@ -1,10 +1,14 @@
 package com.dfg.java_template.business.param.page;
 
+import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import com.dfg.java_template.business.param.page.bo.PageBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import java.io.Serializable;
+import com.dfg.java_template.business.entity.SysUser;
 import lombok.experimental.SuperBuilder;
 import java.io.Serial;
 
@@ -12,7 +16,7 @@ import java.io.Serial;
 /**
 * 后台用户列表参数对象
 * @author zgc
-* @since 2025-05-23 16:40:10
+* @since 2025-06-05 17:27:43
 */
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor

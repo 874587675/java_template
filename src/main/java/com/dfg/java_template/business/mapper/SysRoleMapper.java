@@ -13,7 +13,7 @@ import java.util.List;
  * </p>
  *
  * @author zgc
- * @since 2025-05-22 18:49:30
+ * @since 2025-06-05 17:27:43
  */
 @Mapper
 public interface SysRoleMapper extends BaseMapper<SysRole> {

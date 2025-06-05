@@ -8,10 +8,12 @@ import com.dfg.java_template.business.param.update.SysRoleMenuUpdateParam;
 import com.dfg.java_template.business.param.list.SysRoleMenuListParam;
 import com.dfg.java_template.business.param.query.SysRoleMenuQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
+import com.dfg.java_template.business.param.page.SysRoleMenuPageParam;
 import com.dfg.java_template.business.param.vo.SysRoleMenuVO;
+import java.util.List;
 /**
 * @author zgc
-* @since 2025-05-22 18:49:30
+* @since 2025-06-05 17:27:43
 */
 public interface SysRoleMenuService extends IService<SysRoleMenu> {
 
@@ -35,7 +37,15 @@ public interface SysRoleMenuService extends IService<SysRoleMenu> {
     * @param sysRoleMenuListParam 查询角色和菜单关联列表参数
     * @return 角色和菜单关联VO列表
     */
-    PageVO<SysRoleMenuVO> listSysRoleMenu(SysRoleMenuListParam sysRoleMenuListParam);
+    List<SysRoleMenuVO> listSysRoleMenu(SysRoleMenuListParam sysRoleMenuListParam);
+    
+    /**
+    * 分页查询角色和菜单关联列表
+    *
+    * @param sysRoleMenuPageParam 查询角色和菜单关联列表参数
+    * @return 角色和菜单关联VO列表
+    */
+    PageVO<SysRoleMenuVO> pageSysRoleMenu(SysRoleMenuPageParam sysRoleMenuPageParam);
 
     /**
     * 查询角色和菜单关联详情

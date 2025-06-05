@@ -1,6 +1,7 @@
 package com.dfg.java_template.business.controller.back;
 
 import com.dfg.java_template.business.param.list.SysMenuListParam;
+import com.dfg.java_template.business.param.page.SysMenuPageParam;
 import com.dfg.java_template.business.param.page.vo.PageVO;
 import com.dfg.java_template.business.param.query.SysMenuQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-
+import java.util.List;
 
 
 /**
@@ -56,8 +57,14 @@ public class SysMenuController {
 
     @ApiOperation(value = "查询菜单权限列表", produces = "application/json", consumes = "application/json")
     @PostMapping(value = "/listSysMenu", produces = "application/json", consumes = "application/json")
-    public R<PageVO<SysMenuVO>> listSysMenu(@Validated @RequestBody SysMenuListParam sysMenuListParam){
+    public R<List<SysMenuVO>> listSysMenu(@Validated @RequestBody SysMenuListParam sysMenuListParam){
         return R.ok(sysMenuService.listSysMenu(sysMenuListParam));
+    }
+
+    @ApiOperation(value = "分页查询菜单权限列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/pageSysMenu", produces = "application/json", consumes = "application/json")
+    public R<PageVO<SysMenuVO>> pageSysMenu(@Validated @RequestBody SysMenuPageParam sysMenuPageParam){
+        return R.ok(sysMenuService.pageSysMenu(sysMenuPageParam));
     }
 
     @ApiOperation(value = "查询菜单权限详情", produces = "application/json", consumes = "application/json")

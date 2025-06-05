@@ -8,13 +8,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;
-import java.util.Date;import java.io.Serial;
+import java.util.Date;
+import java.io.Serial;
 
 /**
 * 用户角色关联表实体类对象
 *
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-06-05 17:27:43
 */
 @Getter
 @Setter
@@ -23,9 +24,8 @@ import java.util.Date;import java.io.Serial;
 @ApiModel(value = "SysUserRole对象", description = "用户角色关联表")
 public class SysUserRole implements Serializable {
 
-@Serial
-private static final long serialVersionUID = 1L;
-
+    @Serial
+    private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "用户角色关联ID")
     @TableId(value = "user_role_id", type = IdType.ASSIGN_ID)
     private String userRoleId;

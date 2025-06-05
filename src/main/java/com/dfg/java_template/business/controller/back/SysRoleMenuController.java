@@ -1,6 +1,7 @@
 package com.dfg.java_template.business.controller.back;
 
 import com.dfg.java_template.business.param.list.SysRoleMenuListParam;
+import com.dfg.java_template.business.param.page.SysRoleMenuPageParam;
 import com.dfg.java_template.business.param.page.vo.PageVO;
 import com.dfg.java_template.business.param.query.SysRoleMenuQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-
+import java.util.List;
 
 
 /**
@@ -56,8 +57,14 @@ public class SysRoleMenuController {
 
     @ApiOperation(value = "查询角色和菜单关联列表", produces = "application/json", consumes = "application/json")
     @PostMapping(value = "/listSysRoleMenu", produces = "application/json", consumes = "application/json")
-    public R<PageVO<SysRoleMenuVO>> listSysRoleMenu(@Validated @RequestBody SysRoleMenuListParam sysRoleMenuListParam){
+    public R<List<SysRoleMenuVO>> listSysRoleMenu(@Validated @RequestBody SysRoleMenuListParam sysRoleMenuListParam){
         return R.ok(sysRoleMenuService.listSysRoleMenu(sysRoleMenuListParam));
+    }
+
+    @ApiOperation(value = "分页查询角色和菜单关联列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/pageSysRoleMenu", produces = "application/json", consumes = "application/json")
+    public R<PageVO<SysRoleMenuVO>> pageSysRoleMenu(@Validated @RequestBody SysRoleMenuPageParam sysRoleMenuPageParam){
+        return R.ok(sysRoleMenuService.pageSysRoleMenu(sysRoleMenuPageParam));
     }
 
     @ApiOperation(value = "查询角色和菜单关联详情", produces = "application/json", consumes = "application/json")

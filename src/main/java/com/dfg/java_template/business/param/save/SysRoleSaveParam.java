@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
 * 角色信息新增参数对象
 * @author zgc
-* @since 2025-05-22 18:49:30
+* @since 2025-06-05 17:27:43
 */
 @AllArgsConstructor
 @NoArgsConstructor

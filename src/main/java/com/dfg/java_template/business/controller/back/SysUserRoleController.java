@@ -1,6 +1,7 @@
 package com.dfg.java_template.business.controller.back;
 
 import com.dfg.java_template.business.param.list.SysUserRoleListParam;
+import com.dfg.java_template.business.param.page.SysUserRolePageParam;
 import com.dfg.java_template.business.param.page.vo.PageVO;
 import com.dfg.java_template.business.param.query.SysUserRoleQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -55,8 +57,14 @@ public class SysUserRoleController {
 
     @ApiOperation(value = "查询用户角色关联列表", produces = "application/json", consumes = "application/json")
     @PostMapping(value = "/listSysUserRole", produces = "application/json", consumes = "application/json")
-    public R<PageVO<SysUserRoleVO>> listSysUserRole(@Validated @RequestBody SysUserRoleListParam sysUserRoleListParam){
+    public R<List<SysUserRoleVO>> listSysUserRole(@Validated @RequestBody SysUserRoleListParam sysUserRoleListParam){
         return R.ok(sysUserRoleService.listSysUserRole(sysUserRoleListParam));
+    }
+
+    @ApiOperation(value = "分页查询用户角色关联列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/pageSysUserRole", produces = "application/json", consumes = "application/json")
+    public R<PageVO<SysUserRoleVO>> pageSysUserRole(@Validated @RequestBody SysUserRolePageParam sysUserRolePageParam){
+        return R.ok(sysUserRoleService.pageSysUserRole(sysUserRolePageParam));
     }
 
     @ApiOperation(value = "查询用户角色关联详情", produces = "application/json", consumes = "application/json")

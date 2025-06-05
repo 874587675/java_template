@@ -8,6 +8,7 @@ import com.dfg.java_template.business.entity.SysRoleMenu;
 import com.dfg.java_template.business.mapper.SysRoleMenuMapper;
 import com.dfg.java_template.business.param.convertor.SysRoleMenuConvertor;
 import com.dfg.java_template.business.param.list.SysRoleMenuListParam;
+import com.dfg.java_template.business.param.page.SysRoleMenuPageParam;
 import com.dfg.java_template.business.param.page.vo.PageVO;
 import com.dfg.java_template.business.param.query.SysRoleMenuQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-
+import java.util.List;
 
 /**
 * <p>
@@ -28,13 +29,13 @@ import javax.annotation.Resource;
 * </p>
 *
 * @author zgc
-* @since 2025-05-22 18:49:30
+* @since 2025-06-05 17:27:43
 */
 @Service
 @Slf4j
 public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRoleMenu> implements SysRoleMenuService {
-@Resource
-private SysRoleMenuMapper sysRoleMenuMapper;
+    @Resource
+    private SysRoleMenuMapper sysRoleMenuMapper;
 
     /**
     * 保存角色和菜单关联
@@ -58,7 +59,6 @@ private SysRoleMenuMapper sysRoleMenuMapper;
         sysRoleMenuMapper.updateById(SysRoleMenuConvertor.UPDATE.updateParamToEntity(sysRoleMenuUpdateParam));
     }
 
-
     /**
     * 查询角色和菜单关联列表
     *
@@ -66,12 +66,28 @@ private SysRoleMenuMapper sysRoleMenuMapper;
     * @return 角色和菜单关联VO列表
     */
     @Override
-    public PageVO<SysRoleMenuVO> listSysRoleMenu(SysRoleMenuListParam sysRoleMenuListParam){
-        String roleMenuId= sysRoleMenuListParam.getRoleMenuId();
-
-        Page<SysRoleMenu> page = page(new Page<>(sysRoleMenuListParam.getPageNo(), sysRoleMenuListParam.getPageSize()),
+    public List<SysRoleMenuVO> listSysRoleMenu(SysRoleMenuListParam sysRoleMenuListParam){
+        String sysRoleMenuId = sysRoleMenuListParam.getRoleMenuId();
+        List<SysRoleMenu> list =list(
                 new LambdaQueryWrapper<SysRoleMenu>()
-                        .eq(ObjectUtil.isNotEmpty(roleMenuId), SysRoleMenu::getRoleMenuId, roleMenuId)
+                        .eq(ObjectUtil.isNotEmpty(sysRoleMenuId), SysRoleMenu::getRoleMenuId, sysRoleMenuId)
+                        .orderByDesc(SysRoleMenu::getCreateTime)
+        );
+        return SysRoleMenuConvertor.LIST.listEntityToListVO(list);
+    }
+
+    /**
+    * 分页查询角色和菜单关联列表
+    *
+    * @param sysRoleMenuPageParam 查询角色和菜单关联列表参数
+    * @return 角色和菜单关联VO列表
+    */
+    @Override
+    public PageVO<SysRoleMenuVO> pageSysRoleMenu(SysRoleMenuPageParam sysRoleMenuPageParam){
+        String sysRoleMenuId = sysRoleMenuPageParam.getRoleMenuId();
+        Page<SysRoleMenu> page = page(new Page<>(sysRoleMenuPageParam.getPageNo(), sysRoleMenuPageParam.getPageSize()),
+                new LambdaQueryWrapper<SysRoleMenu>()
+                        .eq(ObjectUtil.isNotEmpty(sysRoleMenuId), SysRoleMenu::getRoleMenuId, sysRoleMenuId)
                         .orderByDesc(SysRoleMenu::getCreateTime)
         );
         return PageVO.addPageData(page, SysRoleMenuConvertor.LIST.listEntityToListVO(page.getRecords()));

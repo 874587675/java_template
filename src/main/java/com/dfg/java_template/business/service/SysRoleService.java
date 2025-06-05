@@ -8,10 +8,12 @@ import com.dfg.java_template.business.param.update.SysRoleUpdateParam;
 import com.dfg.java_template.business.param.list.SysRoleListParam;
 import com.dfg.java_template.business.param.query.SysRoleQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
+import com.dfg.java_template.business.param.page.SysRolePageParam;
 import com.dfg.java_template.business.param.vo.SysRoleVO;
+import java.util.List;
 /**
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-06-05 17:27:43
 */
 public interface SysRoleService extends IService<SysRole> {
 
@@ -35,7 +37,15 @@ public interface SysRoleService extends IService<SysRole> {
     * @param sysRoleListParam 查询角色信息列表参数
     * @return 角色信息VO列表
     */
-    PageVO<SysRoleVO> listSysRole(SysRoleListParam sysRoleListParam);
+    List<SysRoleVO> listSysRole(SysRoleListParam sysRoleListParam);
+    
+    /**
+    * 分页查询角色信息列表
+    *
+    * @param sysRolePageParam 查询角色信息列表参数
+    * @return 角色信息VO列表
+    */
+    PageVO<SysRoleVO> pageSysRole(SysRolePageParam sysRolePageParam);
 
     /**
     * 查询角色信息详情

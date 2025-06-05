@@ -6,23 +6,22 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
+import java.io.Serial;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * 用户角色关联新增参数对象
- *
- * @author zgc
- * @since 2025-05-17 19:35:17
- */
+* 用户角色关联新增参数对象
+* @author zgc
+* @since 2025-06-05 17:27:43
+*/
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
 @ApiModel(value = "用户角色关联新增参数", description = "用户角色关联新增参数对象")
 public class SysUserRoleSaveParam implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -31,11 +30,5 @@ public class SysUserRoleSaveParam implements Serializable {
 
     @ApiModelProperty(value = "角色ID")
     private String roleId;
-
-    @ApiModelProperty(value = "创建者ID")
-    private String createUserId;
-
-    @ApiModelProperty(value = "更新者ID")
-    private String updateUserId;
 
 }

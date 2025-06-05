@@ -14,7 +14,7 @@ import java.util.List;
 * SysMenuConvertor
 *
 * @author zgc
-* @since 2025-05-26 09:31:55
+* @since 2025-06-05 17:27:43
 */
 @Mapper
 public interface SysMenuConvertor extends AbstractConvertor<SysMenuSaveParam , SysMenuUpdateParam, SysMenuVO, SysMenu,List<SysMenu>,List<SysMenuVO>> {

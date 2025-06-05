@@ -8,6 +8,7 @@ import com.dfg.java_template.business.entity.SysRole;
 import com.dfg.java_template.business.mapper.SysRoleMapper;
 import com.dfg.java_template.business.param.convertor.SysRoleConvertor;
 import com.dfg.java_template.business.param.list.SysRoleListParam;
+import com.dfg.java_template.business.param.page.SysRolePageParam;
 import com.dfg.java_template.business.param.page.vo.PageVO;
 import com.dfg.java_template.business.param.query.SysRoleQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * <p>
@@ -27,13 +29,13 @@ import javax.annotation.Resource;
 * </p>
 *
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-06-05 17:27:43
 */
 @Service
 @Slf4j
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
-@Resource
-private SysRoleMapper sysRoleMapper;
+    @Resource
+    private SysRoleMapper sysRoleMapper;
 
     /**
     * 保存角色信息
@@ -57,7 +59,6 @@ private SysRoleMapper sysRoleMapper;
         sysRoleMapper.updateById(SysRoleConvertor.UPDATE.updateParamToEntity(sysRoleUpdateParam));
     }
 
-
     /**
     * 查询角色信息列表
     *
@@ -65,9 +66,26 @@ private SysRoleMapper sysRoleMapper;
     * @return 角色信息VO列表
     */
     @Override
-    public PageVO<SysRoleVO> listSysRole(SysRoleListParam sysRoleListParam){
+    public List<SysRoleVO> listSysRole(SysRoleListParam sysRoleListParam){
         String sysRoleId = sysRoleListParam.getRoleId();
-        Page<SysRole> page = page(new Page<>(sysRoleListParam.getPageNo(), sysRoleListParam.getPageSize()),
+        List<SysRole> list =list(
+                new LambdaQueryWrapper<SysRole>()
+                        .eq(ObjectUtil.isNotEmpty(sysRoleId), SysRole::getRoleId, sysRoleId)
+                        .orderByDesc(SysRole::getCreateTime)
+        );
+        return SysRoleConvertor.LIST.listEntityToListVO(list);
+    }
+
+    /**
+    * 分页查询角色信息列表
+    *
+    * @param sysRolePageParam 查询角色信息列表参数
+    * @return 角色信息VO列表
+    */
+    @Override
+    public PageVO<SysRoleVO> pageSysRole(SysRolePageParam sysRolePageParam){
+        String sysRoleId = sysRolePageParam.getRoleId();
+        Page<SysRole> page = page(new Page<>(sysRolePageParam.getPageNo(), sysRolePageParam.getPageSize()),
                 new LambdaQueryWrapper<SysRole>()
                         .eq(ObjectUtil.isNotEmpty(sysRoleId), SysRole::getRoleId, sysRoleId)
                         .orderByDesc(SysRole::getCreateTime)

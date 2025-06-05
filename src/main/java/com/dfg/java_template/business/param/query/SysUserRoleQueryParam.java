@@ -1,19 +1,15 @@
 package com.dfg.java_template.business.param.query;
 
 import io.swagger.annotations.ApiModel;
+import lombok.*;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
-import java.io.Serial;
 import java.io.Serializable;
+import java.io.Serial;
 /**
 * 用户角色关联查询参数
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-06-05 17:27:43
 */
 @AllArgsConstructor
 @NoArgsConstructor

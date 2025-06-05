@@ -2,18 +2,16 @@ package com.dfg.java_template.business.param.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.io.Serial;
+import lombok.*;
 import java.io.Serializable;
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.Serial;
 
 /**
 * 用户角色关联VO对象
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-06-05 17:27:43
 */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,11 +31,5 @@ public class SysUserRoleVO implements Serializable {
 
     @ApiModelProperty(value="角色ID")
     private String roleId;
-
-    @ApiModelProperty(value="创建者ID")
-    private String createUserId;
-
-    @ApiModelProperty(value="更新者ID")
-    private String updateUserId;
 
 }

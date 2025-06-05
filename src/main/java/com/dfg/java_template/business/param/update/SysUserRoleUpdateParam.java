@@ -6,14 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
-import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.Serial;
 /**
 * 用户角色关联修改参数
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-06-05 17:27:43
 */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +22,6 @@ import java.io.Serializable;
 @Data
 @ApiModel(value = "用户角色关联修改参数", description = "用户角色关联修改参数对象")
 public class SysUserRoleUpdateParam implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -34,11 +34,5 @@ public class SysUserRoleUpdateParam implements Serializable {
 
     @ApiModelProperty(value="角色ID")
     private String roleId;
-
-    @ApiModelProperty(value="创建者ID")
-    private String createUserId;
-
-    @ApiModelProperty(value="更新者ID")
-    private String updateUserId;
 
 }
