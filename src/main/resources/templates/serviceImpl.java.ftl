@@ -14,6 +14,7 @@ import com.dfg.java_template.business.param.update.${entity}UpdateParam;
 import com.dfg.java_template.business.param.list.${entity}ListParam;
 import com.dfg.java_template.business.param.query.${entity}QueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
+import com.dfg.java_template.business.param.page.${entity}PageParam;
 import cn.hutool.core.util.ObjectUtil;
 import javax.annotation.Resource;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
