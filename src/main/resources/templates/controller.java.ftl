@@ -14,6 +14,7 @@ import com.dfg.java_template.business.param.update.${entity}UpdateParam;
 import com.dfg.java_template.business.param.list.${entity}ListParam;
 import com.dfg.java_template.business.param.query.${entity}QueryParam;
 import com.dfg.java_template.business.param.save.${entity}SaveParam;
+import com.dfg.java_template.business.param.page.${entity}PageParam;
 import com.dfg.java_template.business.param.vo.${entity}VO;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.validation.annotation.Validated;

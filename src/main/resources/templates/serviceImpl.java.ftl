@@ -33,8 +33,8 @@ import java.util.List;
 @Service
 @Slf4j
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
-@Resource
-private ${table.mapperName} ${table.mapperName?uncap_first};
+    @Resource
+    private ${table.mapperName} ${table.mapperName?uncap_first};
 
     /**
     * 保存${moduleName}
@@ -67,12 +67,12 @@ private ${table.mapperName} ${table.mapperName?uncap_first};
     @Override
     public List<${entity}VO> list${entity}(${entity}ListParam ${entity?uncap_first}ListParam){
         String ${entity?substring(0,1)?lower_case + entity?substring(1)}Id = ${entity?uncap_first}ListParam.get${entity}Id();
-        List<${entity}> ${entity}List =list(
+        List<${entity}> list =list(
                 new LambdaQueryWrapper<${entity}>()
                         .eq(ObjectUtil.isNotEmpty(${entity?substring(0,1)?lower_case + entity?substring(1)}Id), ${entity}::get${entity}Id, ${entity?substring(0,1)?lower_case + entity?substring(1)}Id)
                         .orderByDesc(${entity}::getCreateTime)
         );
-        return ${entity}Convertor.LIST.listEntityToListVO(${entity}List);
+        return ${entity}Convertor.LIST.listEntityToListVO(list);
     }
 
     /**
