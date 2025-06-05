@@ -1,5 +1,6 @@
 package com.dfg.java_template.business.param.list;
 
+import com.dfg.java_template.business.param.page.bo.PageBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @ApiModel(value = "菜单权限查询列表参数", description = "菜单权限查询列表参数对象")
-public class SysMenuListParam  implements Serializable {
+public class SysMenuListParam  extends PageBO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

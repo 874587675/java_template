@@ -1,5 +1,6 @@
 package com.dfg.java_template.business.param.list;
 
+import com.dfg.java_template.business.param.page.bo.PageBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @ApiModel(value = "用户角色关联查询列表参数", description = "用户角色关联查询列表参数对象")
-public class SysUserRoleListParam implements Serializable {
+public class SysUserRoleListParam  extends PageBO implements Serializable {
 
     @Serial 
     private static final long serialVersionUID = 1L;

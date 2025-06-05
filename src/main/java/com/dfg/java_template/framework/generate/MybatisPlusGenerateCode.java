@@ -24,7 +24,7 @@ public class MybatisPlusGenerateCode {
 //        tableNames.add("t_sys_user");
 //        tableNames.add("t_sys_role");
 //        tableNames.add("t_sys_user_role");
-//        tableNames.add("t_sys_menu");   
+        tableNames.add("t_sys_menu");   
 //        tableNames.add("t_sys_role_menu");
         
         generateCode(tableNames);
