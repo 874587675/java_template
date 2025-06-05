@@ -1,14 +1,10 @@
-package com.dfg.java_template.business.param.list;
+package com.dfg.java_template.business.param.page;
 
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import com.dfg.java_template.business.param.page.bo.PageBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import java.io.Serializable;
-import com.dfg.java_template.business.entity.SysUser;
 import lombok.experimental.SuperBuilder;
 import java.io.Serial;
 
@@ -24,7 +20,7 @@ import java.io.Serial;
 @SuperBuilder
 @Data
 @ApiModel(value = "后台用户查询列表参数", description = "后台用户查询列表参数对象")
-public class SysUserListParam extends PageBO implements Serializable {
+public class SysUserPageParam extends PageBO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

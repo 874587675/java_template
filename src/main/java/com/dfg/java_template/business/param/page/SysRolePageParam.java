@@ -1,4 +1,4 @@
-package com.dfg.java_template.business.param.list;
+package com.dfg.java_template.business.param.page;
 
 import com.dfg.java_template.business.param.page.bo.PageBO;
 import io.swagger.annotations.ApiModel;
@@ -14,22 +14,22 @@ import java.io.Serializable;
 
 
 /**
-* 用户角色关联列表参数对象
+* 角色信息列表参数对象
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-05-22 18:49:30
 */
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 @Data
-@ApiModel(value = "用户角色关联查询列表参数", description = "用户角色关联查询列表参数对象")
-public class SysUserRoleListParam extends PageBO implements Serializable {
+@ApiModel(value = "角色信息查询列表参数", description = "角色信息查询列表参数对象")
+public class SysRolePageParam extends PageBO implements Serializable {
 
     @Serial
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        @ApiModelProperty(value="用户角色关联ID")
-        private String userRoleId;
+    @ApiModelProperty(value="角色ID")
+    private String roleId;
 
 }

@@ -9,6 +9,7 @@ import com.dfg.java_template.business.param.list.${entity}ListParam;
 import com.dfg.java_template.business.param.query.${entity}QueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
 import com.dfg.java_template.business.param.vo.${entity}VO;
+import java.util.List;
 <#assign moduleName = table.comment?substring(0, table.comment?length - 1)>
 /**
 * @author ${author}
@@ -36,7 +37,15 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
     * @param ${entity?uncap_first}ListParam 查询${moduleName}列表参数
     * @return ${moduleName}VO列表
     */
-    PageVO<${entity}VO> list${entity}(${entity}ListParam ${entity?uncap_first}ListParam);
+    List<${entity}VO> list${entity}(${entity}ListParam ${entity?uncap_first}ListParam);
+    
+    /**
+    * 分页查询${moduleName}列表
+    *
+    * @param ${entity?uncap_first}PageParam 查询${moduleName}列表参数
+    * @return ${moduleName}VO列表
+    */
+    PageVO<${entity}VO> page${entity}(${entity}PageParam ${entity?uncap_first}PageParam);
 
     /**
     * 查询${moduleName}详情

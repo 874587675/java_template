@@ -1,6 +1,6 @@
 package com.dfg.java_template.business.controller.front;
 
-import com.dfg.java_template.business.param.list.UserListParam;
+import com.dfg.java_template.business.param.page.UserPageParam;
 import com.dfg.java_template.business.param.page.vo.PageVO;
 import com.dfg.java_template.business.param.query.UserQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
@@ -12,16 +12,14 @@ import com.dfg.java_template.framework.security.param.LoginBody;
 import com.dfg.java_template.framework.web.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.open.api.WxOpenService;
-import me.chanjar.weixin.open.bean.auth.WxOpenAuthorizationInfo;
-import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 
 /**
@@ -59,10 +57,10 @@ public class UserController {
         return R.ok();
     }
     
-    @ApiOperation(value = "查询用户信息列表", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/front/listUser", produces = "application/json", consumes = "application/json")
-    public R<PageVO<UserVO>> listUser(@Validated @RequestBody UserListParam userListParam){
-        return R.ok(userService.listUser(userListParam));
+    @ApiOperation(value = "分页查询用户信息列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/front/pageUser", produces = "application/json", consumes = "application/json")
+    public R<PageVO<UserVO>> pageUser(@Validated @RequestBody UserPageParam userPageParam){
+        return R.ok(userService.pageUser(userPageParam));
     }
 
     @ApiOperation(value = "查询用户信息详情", produces = "application/json", consumes = "application/json")

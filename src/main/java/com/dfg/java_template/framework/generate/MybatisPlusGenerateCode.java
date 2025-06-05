@@ -114,9 +114,9 @@ public class MybatisPlusGenerateCode {
                                 put("queryPackage", "com.dfg.java_template.business.param.query");
                                 put("voPackage", "com.dfg.java_template.business.param.vo");
                                 put("listPackage", "com.dfg.java_template.business.param.list");
+                                put("pagePackage", "com.dfg.java_template.business.param.page");
                                 put("convertorPackage", "com.dfg.java_template.business.param.convertor");
                             }})
-
                             .customFile(consumer -> {
                                 consumer.fileName("SaveParam.java").templatePath("/templates/save.java.ftl").packageName("param.save").enableFileOverride();
                             }).customFile(consumer -> {
@@ -127,6 +127,8 @@ public class MybatisPlusGenerateCode {
                                 consumer.fileName("VO.java").templatePath("/templates/vo.java.ftl").packageName("param.vo").enableFileOverride();
                             }).customFile(consumer -> {
                                 consumer.fileName("ListParam.java").templatePath("/templates/list.java.ftl").packageName("param.list").enableFileOverride();
+                            }).customFile(consumer ->{
+                                consumer.fileName("PageParam.java").templatePath("/templates/page.java.ftl").packageName("param.page").enableFileOverride();
                             }).customFile(consumer -> {
                                 consumer.fileName("Convertor.java").templatePath("/templates/convertor.java.ftl").packageName("param.convertor").enableFileOverride();
                             });

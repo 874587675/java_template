@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dfg.java_template.business.entity.User;
 import com.dfg.java_template.business.mapper.UserMapper;
 import com.dfg.java_template.business.param.convertor.UserConvertor;
-import com.dfg.java_template.business.param.list.UserListParam;
+import com.dfg.java_template.business.param.page.UserPageParam;
 import com.dfg.java_template.business.param.page.vo.PageVO;
 import com.dfg.java_template.business.param.query.UserQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
+
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -80,17 +81,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userMapper.updateById(UserConvertor.UPDATE.updateParamToEntity(userUpdateParam));
     }
 
-
     /**
-     * 查询用户信息列表
+     * 分页查询用户信息
      *
-     * @param userListParam 查询用户信息列表参数
-     * @return 用户信息VO列表
+     * @param userPageParam 分页查询用户信息参数
+     * @return 用户信息VO分页对象
      */
     @Override
-    public PageVO<UserVO> listUser(UserListParam userListParam) {
-        String userId = userListParam.getUserId();
-        Page<User> page = page(new Page<>(userListParam.getPageNo(), userListParam.getPageSize()), new LambdaQueryWrapper<User>().eq(ObjectUtil.isNotEmpty(userId), User::getUserId, userId).orderByDesc(User::getCreateTime));
+    public PageVO<UserVO> pageUser(UserPageParam userPageParam) {
+        String userId = userPageParam.getUserId();
+        Page<User> page = page(new Page<>(userPageParam.getPageNo(), userPageParam.getPageSize()), 
+                new LambdaQueryWrapper<User>()
+                        .eq(ObjectUtil.isNotEmpty(userId), User::getUserId, userId)
+                        .orderByDesc(User::getCreateTime));
         return PageVO.addPageData(page, UserConvertor.LIST.listEntityToListVO(page.getRecords()));
     }
 

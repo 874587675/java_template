@@ -17,7 +17,7 @@ import com.dfg.java_template.business.param.save.${entity}SaveParam;
 import com.dfg.java_template.business.param.vo.${entity}VO;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.validation.annotation.Validated;
-
+import java.util.List;
 
 <#assign moduleName = table.comment?substring(0, table.comment?length - 1)>
 
@@ -56,8 +56,14 @@ public class ${table.controllerName} {
 
     @ApiOperation(value = "查询${moduleName}列表", produces = "application/json", consumes = "application/json")
     @PostMapping(value = "/list${entity}", produces = "application/json", consumes = "application/json")
-    public R<PageVO<${entity}VO>> list${entity}(@Validated @RequestBody ${entity}ListParam ${entity?uncap_first}ListParam){
+    public R<List<${entity}VO>> list${entity}(@Validated @RequestBody ${entity}ListParam ${entity?uncap_first}ListParam){
         return R.ok(${table.serviceName?uncap_first}.list${entity}(${entity?uncap_first}ListParam));
+    }
+
+    @ApiOperation(value = "分页查询${moduleName}列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/page${entity}", produces = "application/json", consumes = "application/json")
+    public R<PageVO<${entity}VO>> page${entity}(@Validated @RequestBody ${entity}PageParam ${entity?uncap_first}PageParam){
+        return R.ok(${table.serviceName?uncap_first}.page${entity}(${entity?uncap_first}PageParam));
     }
 
     @ApiOperation(value = "查询${moduleName}详情", produces = "application/json", consumes = "application/json")

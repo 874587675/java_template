@@ -2,7 +2,7 @@ package com.dfg.java_template.business.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dfg.java_template.business.entity.User;
-import com.dfg.java_template.business.param.list.UserListParam;
+import com.dfg.java_template.business.param.page.UserPageParam;
 import com.dfg.java_template.business.param.page.vo.PageVO;
 import com.dfg.java_template.business.param.query.UserQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
@@ -30,14 +30,7 @@ public interface UserService extends IService<User> {
     * @param userUpdateParam 修改用户信息参数
     */
     void updateUser(UserUpdateParam userUpdateParam);
-
-    /**
-    * 查询用户信息列表
-    *
-    * @param userListParam 查询用户信息列表参数
-    * @return 用户信息VO列表
-    */
-    PageVO<UserVO> listUser(UserListParam userListParam);
+    
 
     /**
     * 查询用户信息详情
@@ -60,4 +53,12 @@ public interface UserService extends IService<User> {
      * @return token 令牌
      */
     String loginUser(LoginBody loginBody);
+
+    /**
+     * 分页查询用户信息
+     *
+     * @param userPageParam 分页查询用户信息参数
+     * @return 用户信息分页VO
+     */
+    PageVO<UserVO> pageUser(UserPageParam userPageParam);
 }

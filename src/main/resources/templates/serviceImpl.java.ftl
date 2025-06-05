@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.transaction.annotation.Transactional;
 import com.dfg.java_template.business.param.convertor.${entity}Convertor;
-
+import java.util.List;
 <#assign moduleName = table.comment?substring(0, table.comment?length - 1)>
 
 /**
@@ -58,7 +58,6 @@ private ${table.mapperName} ${table.mapperName?uncap_first};
         ${table.mapperName?uncap_first}.updateById(${entity}Convertor.UPDATE.updateParamToEntity(${entity?uncap_first}UpdateParam));
     }
 
-
     /**
     * 查询${moduleName}列表
     *
@@ -66,9 +65,26 @@ private ${table.mapperName} ${table.mapperName?uncap_first};
     * @return ${moduleName}VO列表
     */
     @Override
-    public PageVO<${entity}VO> list${entity}(${entity}ListParam ${entity?uncap_first}ListParam){
+    public List<${entity}VO> list${entity}(${entity}ListParam ${entity?uncap_first}ListParam){
         String ${entity?substring(0,1)?lower_case + entity?substring(1)}Id = ${entity?uncap_first}ListParam.get${entity}Id();
-        Page<${entity}> page = page(new Page<>(${entity?uncap_first}ListParam.getPageNo(), ${entity?uncap_first}ListParam.getPageSize()),
+        List<${entity}> ${entity}List =list(
+                new LambdaQueryWrapper<${entity}>()
+                        .eq(ObjectUtil.isNotEmpty(${entity?substring(0,1)?lower_case + entity?substring(1)}Id), ${entity}::get${entity}Id, ${entity?substring(0,1)?lower_case + entity?substring(1)}Id)
+                        .orderByDesc(${entity}::getCreateTime)
+        );
+        return ${entity}Convertor.LIST.listEntityToListVO(${entity}List);
+    }
+
+    /**
+    * 分页查询${moduleName}列表
+    *
+    * @param ${entity?uncap_first}PageParam 查询${moduleName}列表参数
+    * @return ${moduleName}VO列表
+    */
+    @Override
+    public PageVO<${entity}VO> page${entity}(${entity}PageParam ${entity?uncap_first}PageParam){
+        String ${entity?substring(0,1)?lower_case + entity?substring(1)}Id = ${entity?uncap_first}PageParam.get${entity}Id();
+        Page<${entity}> page = page(new Page<>(${entity?uncap_first}PageParam.getPageNo(), ${entity?uncap_first}PageParam.getPageSize()),
                 new LambdaQueryWrapper<${entity}>()
                         .eq(ObjectUtil.isNotEmpty(${entity?substring(0,1)?lower_case + entity?substring(1)}Id), ${entity}::get${entity}Id, ${entity?substring(0,1)?lower_case + entity?substring(1)}Id)
                         .orderByDesc(${entity}::getCreateTime)

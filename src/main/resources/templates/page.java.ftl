@@ -12,11 +12,13 @@ package ${listPackage};
 import ${pkg};
     </#if>
 </#list>
+import com.dfg.java_template.business.param.page.bo.PageBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import java.io.Serializable;
 import com.dfg.java_template.business.entity.${entity};
+import lombok.experimental.SuperBuilder;
 import java.io.Serial;
 
 <#assign moduleName = table.comment?substring(0, table.comment?length - 1)>
@@ -26,11 +28,13 @@ import java.io.Serial;
 * @author ${author}
 * @since ${date}
 */
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 @Data
 @ApiModel(value = "${moduleName}查询列表参数", description = "${moduleName}查询列表参数对象")
-public class ${entity}ListParam implements Serializable {
+public class ${entity}ListParam extends PageBO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
