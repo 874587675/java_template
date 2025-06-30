@@ -55,22 +55,40 @@ public class ${table.controllerName} {
         return R.ok();
     }
 
-    @ApiOperation(value = "查询${moduleName}列表", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/list${entity}", produces = "application/json", consumes = "application/json")
-    public R<List<${entity}VO>> list${entity}(@Validated @RequestBody ${entity}ListParam ${entity?uncap_first}ListParam){
-        return R.ok(${table.serviceName?uncap_first}.list${entity}(${entity?uncap_first}ListParam));
+    @ApiOperation(value = "前台用户查询${moduleName}列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontList${entity}", produces = "application/json", consumes = "application/json")
+    public R<List<${entity}VO>> frontList${entity}(@Validated @RequestBody ${entity}ListParam ${entity?uncap_first}ListParam){
+        return R.ok(${table.serviceName?uncap_first}.frontList${entity}(${entity?uncap_first}ListParam));
     }
 
-    @ApiOperation(value = "分页查询${moduleName}列表", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/page${entity}", produces = "application/json", consumes = "application/json")
-    public R<PageVO<${entity}VO>> page${entity}(@Validated @RequestBody ${entity}PageParam ${entity?uncap_first}PageParam){
-        return R.ok(${table.serviceName?uncap_first}.page${entity}(${entity?uncap_first}PageParam));
+    @ApiOperation(value = "前台用户分页查询${moduleName}列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontPage${entity}", produces = "application/json", consumes = "application/json")
+    public R<PageVO<${entity}VO>> frontPage${entity}(@Validated @RequestBody ${entity}PageParam ${entity?uncap_first}PageParam){
+        return R.ok(${table.serviceName?uncap_first}.frontPage${entity}(${entity?uncap_first}PageParam));
     }
 
-    @ApiOperation(value = "查询${moduleName}详情", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/query${entity}", produces = "application/json", consumes = "application/json")
-    public R<${entity}VO> query${entity}(@Validated @RequestBody ${entity}QueryParam ${entity?uncap_first}QueryParam){
-        return R.ok(${table.serviceName?uncap_first}.query${entity}(${entity?uncap_first}QueryParam));
+    @ApiOperation(value = "前台用户查询${moduleName}详情", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontQuery${entity}", produces = "application/json", consumes = "application/json")
+    public R<${entity}VO> frontQuery${entity}(@Validated @RequestBody ${entity}QueryParam ${entity?uncap_first}QueryParam){
+        return R.ok(${table.serviceName?uncap_first}.frontQuery${entity}(${entity?uncap_first}QueryParam));
     }
+
+    @ApiOperation(value = "后台用户查询${moduleName}列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backList${entity}", produces = "application/json", consumes = "application/json")
+    public R<List<${entity}VO>> backList${entity}(@Validated @RequestBody ${entity}ListParam ${entity?uncap_first}ListParam){
+        return R.ok(${table.serviceName?uncap_first}.backList${entity}(${entity?uncap_first}ListParam));
+        }
+
+    @ApiOperation(value = "后台用户分页查询${moduleName}列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backPage${entity}", produces = "application/json", consumes = "application/json")
+    public R<PageVO<${entity}VO>> backPage${entity}(@Validated @RequestBody ${entity}PageParam ${entity?uncap_first}PageParam){
+        return R.ok(${table.serviceName?uncap_first}.backPage${entity}(${entity?uncap_first}PageParam));
+        }
+    
+    @ApiOperation(value = "后台用户查询${moduleName}详情", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backQuery${entity}", produces = "application/json", consumes = "application/json")
+    public R<${entity}VO> backQuery${entity}(@Validated @RequestBody ${entity}QueryParam ${entity?uncap_first}QueryParam){
+        return R.ok(${table.serviceName?uncap_first}.backQuery${entity}(${entity?uncap_first}QueryParam));
+        }            
 
 }
