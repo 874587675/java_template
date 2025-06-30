@@ -14,7 +14,7 @@ import java.util.List;
 * UserConvertor
 *
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-06-30 11:42:56
 */
 @Mapper
 public interface UserConvertor extends AbstractConvertor<UserSaveParam , UserUpdateParam, UserVO, User,List<User>,List<UserVO>> {

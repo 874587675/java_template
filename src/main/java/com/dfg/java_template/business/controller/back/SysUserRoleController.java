@@ -25,11 +25,11 @@ import java.util.List;
 /**
 * 用户角色关联 模块
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-06-30 11:42:56
 */
 @Api(value = "用户角色关联模块", tags = "用户角色关联模块相关接口")
 @RestController
-@RequestMapping("/api/v1/back")
+@RequestMapping("/api/v1/sysUserRole/back")
 public class SysUserRoleController {
     @Resource
     private SysUserRoleService sysUserRoleService;
@@ -55,22 +55,40 @@ public class SysUserRoleController {
         return R.ok();
     }
 
-    @ApiOperation(value = "查询用户角色关联列表", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/listSysUserRole", produces = "application/json", consumes = "application/json")
-    public R<List<SysUserRoleVO>> listSysUserRole(@Validated @RequestBody SysUserRoleListParam sysUserRoleListParam){
-        return R.ok(sysUserRoleService.listSysUserRole(sysUserRoleListParam));
+    @ApiOperation(value = "前台用户查询用户角色关联列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontListSysUserRole", produces = "application/json", consumes = "application/json")
+    public R<List<SysUserRoleVO>> frontListSysUserRole(@Validated @RequestBody SysUserRoleListParam sysUserRoleListParam){
+        return R.ok(sysUserRoleService.frontListSysUserRole(sysUserRoleListParam));
     }
 
-    @ApiOperation(value = "分页查询用户角色关联列表", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/pageSysUserRole", produces = "application/json", consumes = "application/json")
-    public R<PageVO<SysUserRoleVO>> pageSysUserRole(@Validated @RequestBody SysUserRolePageParam sysUserRolePageParam){
-        return R.ok(sysUserRoleService.pageSysUserRole(sysUserRolePageParam));
+    @ApiOperation(value = "前台用户分页查询用户角色关联列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontPageSysUserRole", produces = "application/json", consumes = "application/json")
+    public R<PageVO<SysUserRoleVO>> frontPageSysUserRole(@Validated @RequestBody SysUserRolePageParam sysUserRolePageParam){
+        return R.ok(sysUserRoleService.frontPageSysUserRole(sysUserRolePageParam));
     }
 
-    @ApiOperation(value = "查询用户角色关联详情", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/querySysUserRole", produces = "application/json", consumes = "application/json")
-    public R<SysUserRoleVO> querySysUserRole(@Validated @RequestBody SysUserRoleQueryParam sysUserRoleQueryParam){
-        return R.ok(sysUserRoleService.querySysUserRole(sysUserRoleQueryParam));
+    @ApiOperation(value = "前台用户查询用户角色关联详情", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontQuerySysUserRole", produces = "application/json", consumes = "application/json")
+    public R<SysUserRoleVO> frontQuerySysUserRole(@Validated @RequestBody SysUserRoleQueryParam sysUserRoleQueryParam){
+        return R.ok(sysUserRoleService.frontQuerySysUserRole(sysUserRoleQueryParam));
     }
+
+    @ApiOperation(value = "后台用户查询用户角色关联列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backListSysUserRole", produces = "application/json", consumes = "application/json")
+    public R<List<SysUserRoleVO>> backListSysUserRole(@Validated @RequestBody SysUserRoleListParam sysUserRoleListParam){
+        return R.ok(sysUserRoleService.backListSysUserRole(sysUserRoleListParam));
+        }
+
+    @ApiOperation(value = "后台用户分页查询用户角色关联列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backPageSysUserRole", produces = "application/json", consumes = "application/json")
+    public R<PageVO<SysUserRoleVO>> backPageSysUserRole(@Validated @RequestBody SysUserRolePageParam sysUserRolePageParam){
+        return R.ok(sysUserRoleService.backPageSysUserRole(sysUserRolePageParam));
+        }
+    
+    @ApiOperation(value = "后台用户查询用户角色关联详情", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backQuerySysUserRole", produces = "application/json", consumes = "application/json")
+    public R<SysUserRoleVO> backQuerySysUserRole(@Validated @RequestBody SysUserRoleQueryParam sysUserRoleQueryParam){
+        return R.ok(sysUserRoleService.backQuerySysUserRole(sysUserRoleQueryParam));
+        }            
 
 }

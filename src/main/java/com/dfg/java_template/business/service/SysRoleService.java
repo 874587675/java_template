@@ -13,7 +13,7 @@ import com.dfg.java_template.business.param.vo.SysRoleVO;
 import java.util.List;
 /**
 * @author zgc
-* @since 2025-06-05 17:27:43
+* @since 2025-06-30 11:42:56
 */
 public interface SysRoleService extends IService<SysRole> {
 
@@ -32,34 +32,57 @@ public interface SysRoleService extends IService<SysRole> {
     void updateSysRole(SysRoleUpdateParam sysRoleUpdateParam);
 
     /**
-    * 查询角色信息列表
-    *
-    * @param sysRoleListParam 查询角色信息列表参数
-    * @return 角色信息VO列表
-    */
-    List<SysRoleVO> listSysRole(SysRoleListParam sysRoleListParam);
-    
-    /**
-    * 分页查询角色信息列表
-    *
-    * @param sysRolePageParam 查询角色信息列表参数
-    * @return 角色信息VO列表
-    */
-    PageVO<SysRoleVO> pageSysRole(SysRolePageParam sysRolePageParam);
-
-    /**
-    * 查询角色信息详情
-    *
-    * @param sysRoleQueryParam 查询角色信息详情参数
-    * @return 角色信息VO
-    */
-    SysRoleVO querySysRole(SysRoleQueryParam sysRoleQueryParam);
-
-    /**
     * 删除角色信息
     *
     * @param removeBaseParam 删除角色信息参数
     */
     void removeSysRole(RemoveBaseParam removeBaseParam);
 
-    }
+    /**
+    * 前台用户查询角色信息列表
+    *
+    * @param sysRoleListParam 查询角色信息列表参数
+    * @return 角色信息VO列表
+    */
+    List<SysRoleVO> frontListSysRole(SysRoleListParam sysRoleListParam);
+    
+    /**
+    * 前台用户分页查询角色信息列表
+    *
+    * @param sysRolePageParam 查询角色信息列表参数
+    * @return 角色信息VO列表
+    */
+    PageVO<SysRoleVO> frontPageSysRole(SysRolePageParam sysRolePageParam);
+
+    /**
+    * 前台用户查询角色信息详情
+    *
+    * @param sysRoleQueryParam 查询角色信息详情参数
+    * @return 角色信息VO
+    */
+    SysRoleVO frontQuerySysRole(SysRoleQueryParam sysRoleQueryParam);
+        
+    /**
+    * 后台用户查询角色信息列表
+    *
+    * @param sysRoleListParam 查询角色信息列表参数
+    * @return 角色信息VO列表
+    */
+    List<SysRoleVO> backListSysRole(SysRoleListParam sysRoleListParam);
+
+    /**
+    * 后台用户分页查询角色信息列表
+    *
+    * @param sysRolePageParam 查询角色信息列表参数
+    * @return 角色信息VO列表
+    */
+    PageVO<SysRoleVO> backPageSysRole(SysRolePageParam sysRolePageParam);
+
+    /**
+    * 后台用户查询角色信息详情
+    *
+    * @param sysRoleQueryParam 查询角色信息详情参数
+    * @return 角色信息VO
+    */
+    SysRoleVO backQuerySysRole(SysRoleQueryParam sysRoleQueryParam);        
+}

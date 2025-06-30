@@ -16,7 +16,7 @@ import java.io.Serial;
 /**
 * 角色信息列表参数对象
 * @author zgc
-* @since 2025-06-05 17:27:43
+* @since 2025-06-30 11:42:56
 */
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor

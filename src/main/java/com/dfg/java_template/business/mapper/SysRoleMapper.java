@@ -13,9 +13,10 @@ import java.util.List;
  * </p>
  *
  * @author zgc
- * @since 2025-06-05 17:27:43
+ * @since 2025-06-30 11:42:56
  */
 @Mapper
 public interface SysRoleMapper extends BaseMapper<SysRole> {
+
     List<String> selectRoleByUserId(@Param("userId") String userId);
 }

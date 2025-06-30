@@ -13,7 +13,7 @@ import com.dfg.java_template.business.param.vo.SysUserRoleVO;
 import java.util.List;
 /**
 * @author zgc
-* @since 2025-06-05 17:27:43
+* @since 2025-06-30 11:42:56
 */
 public interface SysUserRoleService extends IService<SysUserRole> {
 
@@ -32,34 +32,57 @@ public interface SysUserRoleService extends IService<SysUserRole> {
     void updateSysUserRole(SysUserRoleUpdateParam sysUserRoleUpdateParam);
 
     /**
-    * 查询用户角色关联列表
-    *
-    * @param sysUserRoleListParam 查询用户角色关联列表参数
-    * @return 用户角色关联VO列表
-    */
-    List<SysUserRoleVO> listSysUserRole(SysUserRoleListParam sysUserRoleListParam);
-    
-    /**
-    * 分页查询用户角色关联列表
-    *
-    * @param sysUserRolePageParam 查询用户角色关联列表参数
-    * @return 用户角色关联VO列表
-    */
-    PageVO<SysUserRoleVO> pageSysUserRole(SysUserRolePageParam sysUserRolePageParam);
-
-    /**
-    * 查询用户角色关联详情
-    *
-    * @param sysUserRoleQueryParam 查询用户角色关联详情参数
-    * @return 用户角色关联VO
-    */
-    SysUserRoleVO querySysUserRole(SysUserRoleQueryParam sysUserRoleQueryParam);
-
-    /**
     * 删除用户角色关联
     *
     * @param removeBaseParam 删除用户角色关联参数
     */
     void removeSysUserRole(RemoveBaseParam removeBaseParam);
 
-    }
+    /**
+    * 前台用户查询用户角色关联列表
+    *
+    * @param sysUserRoleListParam 查询用户角色关联列表参数
+    * @return 用户角色关联VO列表
+    */
+    List<SysUserRoleVO> frontListSysUserRole(SysUserRoleListParam sysUserRoleListParam);
+    
+    /**
+    * 前台用户分页查询用户角色关联列表
+    *
+    * @param sysUserRolePageParam 查询用户角色关联列表参数
+    * @return 用户角色关联VO列表
+    */
+    PageVO<SysUserRoleVO> frontPageSysUserRole(SysUserRolePageParam sysUserRolePageParam);
+
+    /**
+    * 前台用户查询用户角色关联详情
+    *
+    * @param sysUserRoleQueryParam 查询用户角色关联详情参数
+    * @return 用户角色关联VO
+    */
+    SysUserRoleVO frontQuerySysUserRole(SysUserRoleQueryParam sysUserRoleQueryParam);
+        
+    /**
+    * 后台用户查询用户角色关联列表
+    *
+    * @param sysUserRoleListParam 查询用户角色关联列表参数
+    * @return 用户角色关联VO列表
+    */
+    List<SysUserRoleVO> backListSysUserRole(SysUserRoleListParam sysUserRoleListParam);
+
+    /**
+    * 后台用户分页查询用户角色关联列表
+    *
+    * @param sysUserRolePageParam 查询用户角色关联列表参数
+    * @return 用户角色关联VO列表
+    */
+    PageVO<SysUserRoleVO> backPageSysUserRole(SysUserRolePageParam sysUserRolePageParam);
+
+    /**
+    * 后台用户查询用户角色关联详情
+    *
+    * @param sysUserRoleQueryParam 查询用户角色关联详情参数
+    * @return 用户角色关联VO
+    */
+    SysUserRoleVO backQuerySysUserRole(SysUserRoleQueryParam sysUserRoleQueryParam);        
+}

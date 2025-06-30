@@ -29,7 +29,7 @@ import java.util.List;
 */
 @Api(value = "${moduleName}模块", tags = "${moduleName}模块相关接口")
 @RestController
-@RequestMapping("/api/v1<#if package.ModuleName?? && package.ModuleName != "">/${package.ModuleName}</#if>/<#if controllerMappingHyphenStyle>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
+@RequestMapping("/api/v1<#if package.ModuleName?? && package.ModuleName != "">/${package.ModuleName}</#if>/<#if controllerMappingHyphenStyle>${table.entityPath?replace('^t_', '', 'r')?uncap_first}<#else>${table.entityPath?replace('^t_', '', 'r')?uncap_first}</#if>")
 public class ${table.controllerName} {
     @Resource
     private ${table.serviceName} ${table.serviceName?uncap_first};

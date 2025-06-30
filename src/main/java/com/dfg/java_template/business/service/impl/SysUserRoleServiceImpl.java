@@ -29,7 +29,7 @@ import java.util.List;
 * </p>
 *
 * @author zgc
-* @since 2025-06-05 17:27:43
+* @since 2025-06-30 11:42:56
 */
 @Service
 @Slf4j
@@ -60,51 +60,6 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
     }
 
     /**
-    * 查询用户角色关联列表
-    *
-    * @param sysUserRoleListParam 查询用户角色关联列表参数
-    * @return 用户角色关联VO列表
-    */
-    @Override
-    public List<SysUserRoleVO> listSysUserRole(SysUserRoleListParam sysUserRoleListParam){
-        String sysUserRoleId = sysUserRoleListParam.getUserRoleId();
-        List<SysUserRole> list =list(
-                new LambdaQueryWrapper<SysUserRole>()
-                        .eq(ObjectUtil.isNotEmpty(sysUserRoleId), SysUserRole::getUserRoleId, sysUserRoleId)
-                        .orderByDesc(SysUserRole::getCreateTime)
-        );
-        return SysUserRoleConvertor.LIST.listEntityToListVO(list);
-    }
-
-    /**
-    * 分页查询用户角色关联列表
-    *
-    * @param sysUserRolePageParam 查询用户角色关联列表参数
-    * @return 用户角色关联VO列表
-    */
-    @Override
-    public PageVO<SysUserRoleVO> pageSysUserRole(SysUserRolePageParam sysUserRolePageParam){
-        String sysUserRoleId = sysUserRolePageParam.getUserRoleId();
-        Page<SysUserRole> page = page(new Page<>(sysUserRolePageParam.getPageNo(), sysUserRolePageParam.getPageSize()),
-                new LambdaQueryWrapper<SysUserRole>()
-                        .eq(ObjectUtil.isNotEmpty(sysUserRoleId), SysUserRole::getUserRoleId, sysUserRoleId)
-                        .orderByDesc(SysUserRole::getCreateTime)
-        );
-        return PageVO.addPageData(page, SysUserRoleConvertor.LIST.listEntityToListVO(page.getRecords()));
-    }
-
-    /**
-    * 查询用户角色关联详情
-    *
-    * @param sysUserRoleQueryParam 查询用户角色关联详情参数
-    * @return 用户角色关联VO
-    */
-    @Override
-    public SysUserRoleVO querySysUserRole(SysUserRoleQueryParam sysUserRoleQueryParam){
-        return SysUserRoleConvertor.QUERY.entityToVo(sysUserRoleMapper.selectById(sysUserRoleQueryParam.getUserRoleId()));
-    }
-
-    /**
     * 删除用户角色关联属性
     *
     * @param removeBaseParam 删除用户角色关联属性参数
@@ -115,4 +70,94 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
         sysUserRoleMapper.deleteById(removeBaseParam.getSerializableId());
     }
 
+    /**
+    * 前台用户查询用户角色关联列表
+    *
+    * @param sysUserRoleListParam 查询用户角色关联列表参数
+    * @return 用户角色关联VO列表
+    */
+    @Override
+    public List<SysUserRoleVO> frontListSysUserRole(SysUserRoleListParam sysUserRoleListParam){
+        String sysUserRoleId = sysUserRoleListParam.getUserRoleId();
+        List<SysUserRole> list =list(
+                new LambdaQueryWrapper<SysUserRole>()
+                        .eq(ObjectUtil.isNotEmpty(sysUserRoleId), SysUserRole::getUserRoleId, sysUserRoleId)
+                        .orderByDesc(SysUserRole::getCreateTime)
+        );
+        return SysUserRoleConvertor.LIST.listEntityToListVO(list);
+    }
+
+    /**
+    * 前台用户分页查询用户角色关联列表
+    *
+    * @param sysUserRolePageParam 查询用户角色关联列表参数
+    * @return 用户角色关联VO列表
+    */
+    @Override
+    public PageVO<SysUserRoleVO> frontPageSysUserRole(SysUserRolePageParam sysUserRolePageParam){
+        String sysUserRoleId = sysUserRolePageParam.getUserRoleId();
+        Page<SysUserRole> page = page(new Page<>(sysUserRolePageParam.getPageNo(), sysUserRolePageParam.getPageSize()),
+                new LambdaQueryWrapper<SysUserRole>()
+                        .eq(ObjectUtil.isNotEmpty(sysUserRoleId), SysUserRole::getUserRoleId, sysUserRoleId)
+                        .orderByDesc(SysUserRole::getCreateTime)
+        );
+        return PageVO.addPageData(page, SysUserRoleConvertor.LIST.listEntityToListVO(page.getRecords()));
+    }
+
+    /**
+    * 前台用户查询用户角色关联详情
+    *
+    * @param sysUserRoleQueryParam 查询用户角色关联详情参数
+    * @return 用户角色关联VO
+    */
+    @Override
+    public SysUserRoleVO frontQuerySysUserRole(SysUserRoleQueryParam sysUserRoleQueryParam){
+        return SysUserRoleConvertor.QUERY.entityToVo(sysUserRoleMapper.selectById(sysUserRoleQueryParam.getUserRoleId()));
+    }
+
+    /**
+    * 后台用户查询用户角色关联列表
+    *
+    * @param sysUserRoleListParam 查询用户角色关联列表参数
+    * @return 用户角色关联VO列表
+    */
+    @Override
+    public List<SysUserRoleVO> backListSysUserRole(SysUserRoleListParam sysUserRoleListParam){
+        String sysUserRoleId = sysUserRoleListParam.getUserRoleId();
+        List<SysUserRole> list =list(
+                new LambdaQueryWrapper<SysUserRole>()
+                    .eq(ObjectUtil.isNotEmpty(sysUserRoleId), SysUserRole::getUserRoleId, sysUserRoleId)
+                    .orderByDesc(SysUserRole::getCreateTime)
+        );
+        return SysUserRoleConvertor.LIST.listEntityToListVO(list);
+    }
+
+    /**
+    * 后台用户分页查询用户角色关联列表
+    *
+    * @param sysUserRolePageParam 查询用户角色关联列表参数
+    * @return 用户角色关联VO列表
+    */
+    @Override
+    public PageVO<SysUserRoleVO> backPageSysUserRole(SysUserRolePageParam sysUserRolePageParam){
+        String sysUserRoleId = sysUserRolePageParam.getUserRoleId();
+        Page<SysUserRole> page = page(new Page<>(sysUserRolePageParam.getPageNo(), sysUserRolePageParam.getPageSize()),
+                new LambdaQueryWrapper<SysUserRole>()
+                    .eq(ObjectUtil.isNotEmpty(sysUserRoleId), SysUserRole::getUserRoleId, sysUserRoleId)
+                    .orderByDesc(SysUserRole::getCreateTime)
+        );
+        return PageVO.addPageData(page, SysUserRoleConvertor.LIST.listEntityToListVO(page.getRecords()));
+    }
+
+    /**
+    * 后台用户查询用户角色关联详情
+    *
+    * @param sysUserRoleQueryParam 查询用户角色关联详情参数
+    * @return 用户角色关联VO
+    */
+    @Override
+    public SysUserRoleVO backQuerySysUserRole(SysUserRoleQueryParam sysUserRoleQueryParam){
+        return SysUserRoleConvertor.QUERY.entityToVo(sysUserRoleMapper.selectById(sysUserRoleQueryParam.getUserRoleId()));
+    }        
+        
 }

@@ -14,7 +14,7 @@ import java.util.List;
 * SysRoleConvertor
 *
 * @author zgc
-* @since 2025-06-05 17:27:43
+* @since 2025-06-30 11:42:56
 */
 @Mapper
 public interface SysRoleConvertor extends AbstractConvertor<SysRoleSaveParam , SysRoleUpdateParam, SysRoleVO, SysRole,List<SysRole>,List<SysRoleVO>> {

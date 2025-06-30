@@ -24,7 +24,7 @@ public class MybatisPlusGenerateCode {
 //        tableNames.add("t_sys_user");
 //        tableNames.add("t_sys_role");
 //        tableNames.add("t_sys_user_role");
-        tableNames.add("t_sys_menu");   
+//        tableNames.add("t_sys_menu");   
 //        tableNames.add("t_sys_role_menu");
         
         generateCode(tableNames);
@@ -70,7 +70,9 @@ public class MybatisPlusGenerateCode {
                     builder.addInclude(tableNames) // 要生成的表名
                             .addTablePrefix("t_") // 表前缀过滤（如 "t_" 会去掉表名的前缀）
                             .addFieldPrefix("f_") // 字段前缀过滤（可选）
-
+                            
+                            
+                            
                             // Entity 策略
                             .entityBuilder().javaTemplate("/templates/entity.java") // 设置实体类模板
                             .enableLombok() // 使用 Lombok
@@ -97,7 +99,8 @@ public class MybatisPlusGenerateCode {
                             .enableFileOverride() // 覆盖已生成文件
 
                             // Controller 策略
-                            .controllerBuilder().enableRestStyle() // 启用 REST 风格（@RestController）
+                            .controllerBuilder()
+                            .enableRestStyle() // 启用 REST 风格（@RestController）
                             .enableHyphenStyle() // URL 使用连字符（如 /user/list）
                             .formatFileName("%sController") // 自定义 Controller 文件名
 //                            .enableFileOverride() // 覆盖已生成文件

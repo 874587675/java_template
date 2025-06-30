@@ -1,21 +1,20 @@
 package com.dfg.java_template.business.param.update;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.Serial;
 /**
 * 用户信息修改参数
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-06-30 11:42:56
 */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +22,6 @@ import java.util.Date;
 @Data
 @ApiModel(value = "用户信息修改参数", description = "用户信息修改参数对象")
 public class UserUpdateParam implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -37,8 +35,8 @@ public class UserUpdateParam implements Serializable {
     @ApiModelProperty(value="登录密码")
     private String password;
 
-    @ApiModelProperty(value = "用户性别（1-男 2-女 3-未知）")
-    private String sex;
+    @ApiModelProperty(value="用户性别（1-男 2-女 3-未知）")
+    private Integer sex;
 
     @ApiModelProperty(value="用户昵称")
     private String nickName;

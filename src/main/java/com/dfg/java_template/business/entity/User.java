@@ -1,34 +1,31 @@
 package com.dfg.java_template.business.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.dfg.java_template.framework.security.param.ValidUser;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.io.Serial;
 
 /**
- * 用户信息表实体类对象
- *
- * @author zgc
- * @since 2025-05-17 19:35:17
- */
+* 用户信息表实体类对象
+*
+* @author zgc
+* @since 2025-06-30 11:42:56
+*/
 @Getter
 @Setter
 @Builder
 @TableName(value = "t_user")
 @ApiModel(value = "User对象", description = "用户信息表")
-public class User implements Serializable, ValidUser {
+public class User implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
     @ApiModelProperty(value = "用户ID")
     @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private String userId;
@@ -43,7 +40,7 @@ public class User implements Serializable, ValidUser {
 
     @ApiModelProperty(value = "用户性别（1-男 2-女 3-未知）")
     @TableField(value = "sex")
-    private String sex;
+    private Integer sex;
 
     @ApiModelProperty(value = "用户昵称")
     @TableField(value = "nick_name")
@@ -96,8 +93,4 @@ public class User implements Serializable, ValidUser {
     @Version
     private Integer version;
 
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
 }

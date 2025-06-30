@@ -3,7 +3,9 @@ package com.dfg.java_template.common.exception.base;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.dfg.java_template.framework.util.message.MessageUtils;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 
@@ -13,6 +15,8 @@ import java.io.Serial;
  * @author zgc
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BaseException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -37,17 +41,6 @@ public class BaseException extends RuntimeException {
      */
     private String defaultMessage;
     
-    public BaseException(){
-        
-    }
-
-    public BaseException(String module, String code, Object[] args, String defaultMessage) {
-        this.module = module;
-        this.code = code;
-        this.args = args;
-        this.defaultMessage = defaultMessage;
-    }
-
     public BaseException(String module, String code, Object[] args) {
         this(module, code, args, null);
     }

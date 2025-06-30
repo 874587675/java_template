@@ -9,7 +9,6 @@ import com.dfg.java_template.business.param.save.SysUserSaveParam;
 import com.dfg.java_template.business.param.update.SysUserUpdateParam;
 import com.dfg.java_template.business.param.vo.SysUserVO;
 import com.dfg.java_template.business.service.SysUserService;
-import com.dfg.java_template.framework.security.param.LoginBody;
 import com.dfg.java_template.framework.web.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,11 +25,11 @@ import java.util.List;
 /**
 * 后台用户 模块
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-06-30 11:42:56
 */
 @Api(value = "后台用户模块", tags = "后台用户模块相关接口")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/sysUser/back")
 public class SysUserController {
     @Resource
     private SysUserService sysUserService;
@@ -56,28 +55,40 @@ public class SysUserController {
         return R.ok();
     }
 
-    @ApiOperation(value = "查询后台用户列表", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/listSysUser", produces = "application/json", consumes = "application/json")
-    public R<List<SysUserVO>> listSysUser(@Validated @RequestBody SysUserListParam sysUserListParam){
-        return R.ok(sysUserService.listSysUser(sysUserListParam));
+    @ApiOperation(value = "前台用户查询后台用户列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontListSysUser", produces = "application/json", consumes = "application/json")
+    public R<List<SysUserVO>> frontListSysUser(@Validated @RequestBody SysUserListParam sysUserListParam){
+        return R.ok(sysUserService.frontListSysUser(sysUserListParam));
     }
 
-    @ApiOperation(value = "分页查询后台用户列表", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/pageSysUser", produces = "application/json", consumes = "application/json")
-    public R<PageVO<SysUserVO>> pageSysUser(@Validated @RequestBody SysUserPageParam sysUserPageParam){
-        return R.ok(sysUserService.pageSysUser(sysUserPageParam));
+    @ApiOperation(value = "前台用户分页查询后台用户列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontPageSysUser", produces = "application/json", consumes = "application/json")
+    public R<PageVO<SysUserVO>> frontPageSysUser(@Validated @RequestBody SysUserPageParam sysUserPageParam){
+        return R.ok(sysUserService.frontPageSysUser(sysUserPageParam));
     }
 
-    @ApiOperation(value = "查询后台用户详情", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/querySysUser", produces = "application/json", consumes = "application/json")
-    public R<SysUserVO> querySysUser(@Validated @RequestBody SysUserQueryParam sysUserQueryParam){
-        return R.ok(sysUserService.querySysUser(sysUserQueryParam));
+    @ApiOperation(value = "前台用户查询后台用户详情", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontQuerySysUser", produces = "application/json", consumes = "application/json")
+    public R<SysUserVO> frontQuerySysUser(@Validated @RequestBody SysUserQueryParam sysUserQueryParam){
+        return R.ok(sysUserService.frontQuerySysUser(sysUserQueryParam));
     }
+
+    @ApiOperation(value = "后台用户查询后台用户列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backListSysUser", produces = "application/json", consumes = "application/json")
+    public R<List<SysUserVO>> backListSysUser(@Validated @RequestBody SysUserListParam sysUserListParam){
+        return R.ok(sysUserService.backListSysUser(sysUserListParam));
+        }
+
+    @ApiOperation(value = "后台用户分页查询后台用户列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backPageSysUser", produces = "application/json", consumes = "application/json")
+    public R<PageVO<SysUserVO>> backPageSysUser(@Validated @RequestBody SysUserPageParam sysUserPageParam){
+        return R.ok(sysUserService.backPageSysUser(sysUserPageParam));
+        }
     
-    @ApiOperation(value = "后台用户账号密码登录", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/loginSysUser", produces = "application/json", consumes = "application/json")
-    public R<String> loginSysUser(@Validated @RequestBody LoginBody loginBody){
-        return R.ok(sysUserService.loginSysUser(loginBody));
-    }
+    @ApiOperation(value = "后台用户查询后台用户详情", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backQuerySysUser", produces = "application/json", consumes = "application/json")
+    public R<SysUserVO> backQuerySysUser(@Validated @RequestBody SysUserQueryParam sysUserQueryParam){
+        return R.ok(sysUserService.backQuerySysUser(sysUserQueryParam));
+        }            
 
 }

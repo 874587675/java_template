@@ -14,7 +14,7 @@ import java.util.List;
 * SysRoleMenuConvertor
 *
 * @author zgc
-* @since 2025-06-05 17:27:43
+* @since 2025-06-30 11:42:56
 */
 @Mapper
 public interface SysRoleMenuConvertor extends AbstractConvertor<SysRoleMenuSaveParam , SysRoleMenuUpdateParam, SysRoleMenuVO, SysRoleMenu,List<SysRoleMenu>,List<SysRoleMenuVO>> {

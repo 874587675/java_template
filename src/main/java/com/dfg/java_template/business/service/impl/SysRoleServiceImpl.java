@@ -29,7 +29,7 @@ import java.util.List;
 * </p>
 *
 * @author zgc
-* @since 2025-06-05 17:27:43
+* @since 2025-06-30 11:42:56
 */
 @Service
 @Slf4j
@@ -60,51 +60,6 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
     /**
-    * 查询角色信息列表
-    *
-    * @param sysRoleListParam 查询角色信息列表参数
-    * @return 角色信息VO列表
-    */
-    @Override
-    public List<SysRoleVO> listSysRole(SysRoleListParam sysRoleListParam){
-        String sysRoleId = sysRoleListParam.getRoleId();
-        List<SysRole> list =list(
-                new LambdaQueryWrapper<SysRole>()
-                        .eq(ObjectUtil.isNotEmpty(sysRoleId), SysRole::getRoleId, sysRoleId)
-                        .orderByDesc(SysRole::getCreateTime)
-        );
-        return SysRoleConvertor.LIST.listEntityToListVO(list);
-    }
-
-    /**
-    * 分页查询角色信息列表
-    *
-    * @param sysRolePageParam 查询角色信息列表参数
-    * @return 角色信息VO列表
-    */
-    @Override
-    public PageVO<SysRoleVO> pageSysRole(SysRolePageParam sysRolePageParam){
-        String sysRoleId = sysRolePageParam.getRoleId();
-        Page<SysRole> page = page(new Page<>(sysRolePageParam.getPageNo(), sysRolePageParam.getPageSize()),
-                new LambdaQueryWrapper<SysRole>()
-                        .eq(ObjectUtil.isNotEmpty(sysRoleId), SysRole::getRoleId, sysRoleId)
-                        .orderByDesc(SysRole::getCreateTime)
-        );
-        return PageVO.addPageData(page, SysRoleConvertor.LIST.listEntityToListVO(page.getRecords()));
-    }
-
-    /**
-    * 查询角色信息详情
-    *
-    * @param sysRoleQueryParam 查询角色信息详情参数
-    * @return 角色信息VO
-    */
-    @Override
-    public SysRoleVO querySysRole(SysRoleQueryParam sysRoleQueryParam){
-        return SysRoleConvertor.QUERY.entityToVo(sysRoleMapper.selectById(sysRoleQueryParam.getRoleId()));
-    }
-
-    /**
     * 删除角色信息属性
     *
     * @param removeBaseParam 删除角色信息属性参数
@@ -115,4 +70,94 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         sysRoleMapper.deleteById(removeBaseParam.getSerializableId());
     }
 
+    /**
+    * 前台用户查询角色信息列表
+    *
+    * @param sysRoleListParam 查询角色信息列表参数
+    * @return 角色信息VO列表
+    */
+    @Override
+    public List<SysRoleVO> frontListSysRole(SysRoleListParam sysRoleListParam){
+        String sysRoleId = sysRoleListParam.getRoleId();
+        List<SysRole> list =list(
+                new LambdaQueryWrapper<SysRole>()
+                        .eq(ObjectUtil.isNotEmpty(sysRoleId), SysRole::getRoleId, sysRoleId)
+                        .orderByDesc(SysRole::getCreateTime)
+        );
+        return SysRoleConvertor.LIST.listEntityToListVO(list);
+    }
+
+    /**
+    * 前台用户分页查询角色信息列表
+    *
+    * @param sysRolePageParam 查询角色信息列表参数
+    * @return 角色信息VO列表
+    */
+    @Override
+    public PageVO<SysRoleVO> frontPageSysRole(SysRolePageParam sysRolePageParam){
+        String sysRoleId = sysRolePageParam.getRoleId();
+        Page<SysRole> page = page(new Page<>(sysRolePageParam.getPageNo(), sysRolePageParam.getPageSize()),
+                new LambdaQueryWrapper<SysRole>()
+                        .eq(ObjectUtil.isNotEmpty(sysRoleId), SysRole::getRoleId, sysRoleId)
+                        .orderByDesc(SysRole::getCreateTime)
+        );
+        return PageVO.addPageData(page, SysRoleConvertor.LIST.listEntityToListVO(page.getRecords()));
+    }
+
+    /**
+    * 前台用户查询角色信息详情
+    *
+    * @param sysRoleQueryParam 查询角色信息详情参数
+    * @return 角色信息VO
+    */
+    @Override
+    public SysRoleVO frontQuerySysRole(SysRoleQueryParam sysRoleQueryParam){
+        return SysRoleConvertor.QUERY.entityToVo(sysRoleMapper.selectById(sysRoleQueryParam.getRoleId()));
+    }
+
+    /**
+    * 后台用户查询角色信息列表
+    *
+    * @param sysRoleListParam 查询角色信息列表参数
+    * @return 角色信息VO列表
+    */
+    @Override
+    public List<SysRoleVO> backListSysRole(SysRoleListParam sysRoleListParam){
+        String sysRoleId = sysRoleListParam.getRoleId();
+        List<SysRole> list =list(
+                new LambdaQueryWrapper<SysRole>()
+                    .eq(ObjectUtil.isNotEmpty(sysRoleId), SysRole::getRoleId, sysRoleId)
+                    .orderByDesc(SysRole::getCreateTime)
+        );
+        return SysRoleConvertor.LIST.listEntityToListVO(list);
+    }
+
+    /**
+    * 后台用户分页查询角色信息列表
+    *
+    * @param sysRolePageParam 查询角色信息列表参数
+    * @return 角色信息VO列表
+    */
+    @Override
+    public PageVO<SysRoleVO> backPageSysRole(SysRolePageParam sysRolePageParam){
+        String sysRoleId = sysRolePageParam.getRoleId();
+        Page<SysRole> page = page(new Page<>(sysRolePageParam.getPageNo(), sysRolePageParam.getPageSize()),
+                new LambdaQueryWrapper<SysRole>()
+                    .eq(ObjectUtil.isNotEmpty(sysRoleId), SysRole::getRoleId, sysRoleId)
+                    .orderByDesc(SysRole::getCreateTime)
+        );
+        return PageVO.addPageData(page, SysRoleConvertor.LIST.listEntityToListVO(page.getRecords()));
+    }
+
+    /**
+    * 后台用户查询角色信息详情
+    *
+    * @param sysRoleQueryParam 查询角色信息详情参数
+    * @return 角色信息VO
+    */
+    @Override
+    public SysRoleVO backQuerySysRole(SysRoleQueryParam sysRoleQueryParam){
+        return SysRoleConvertor.QUERY.entityToVo(sysRoleMapper.selectById(sysRoleQueryParam.getRoleId()));
+    }        
+        
 }

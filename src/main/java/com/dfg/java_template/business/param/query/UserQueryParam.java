@@ -4,11 +4,12 @@ import io.swagger.annotations.ApiModel;
 import lombok.*;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;import java.io.Serial;
+import java.io.Serializable;
+import java.io.Serial;
 /**
 * 用户信息查询参数
 * @author zgc
-* @since 2025-05-17 19:35:17
+* @since 2025-06-30 11:42:56
 */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +19,7 @@ import java.io.Serializable;import java.io.Serial;
 public class UserQueryParam  implements Serializable {
 
     @Serial
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value="用户ID",required = true)
     @NotBlank

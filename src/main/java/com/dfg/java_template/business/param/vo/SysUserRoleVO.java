@@ -11,7 +11,7 @@ import java.io.Serial;
 /**
 * 用户角色关联VO对象
 * @author zgc
-* @since 2025-06-05 17:27:43
+* @since 2025-06-30 11:42:56
 */
 @AllArgsConstructor
 @NoArgsConstructor
