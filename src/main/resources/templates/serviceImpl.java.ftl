@@ -60,51 +60,6 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
     }
 
     /**
-    * 查询${moduleName}列表
-    *
-    * @param ${entity?uncap_first}ListParam 查询${moduleName}列表参数
-    * @return ${moduleName}VO列表
-    */
-    @Override
-    public List<${entity}VO> list${entity}(${entity}ListParam ${entity?uncap_first}ListParam){
-        String ${entity?substring(0,1)?lower_case + entity?substring(1)}Id = ${entity?uncap_first}ListParam.get${entity}Id();
-        List<${entity}> list =list(
-                new LambdaQueryWrapper<${entity}>()
-                        .eq(ObjectUtil.isNotEmpty(${entity?substring(0,1)?lower_case + entity?substring(1)}Id), ${entity}::get${entity}Id, ${entity?substring(0,1)?lower_case + entity?substring(1)}Id)
-                        .orderByDesc(${entity}::getCreateTime)
-        );
-        return ${entity}Convertor.LIST.listEntityToListVO(list);
-    }
-
-    /**
-    * 分页查询${moduleName}列表
-    *
-    * @param ${entity?uncap_first}PageParam 查询${moduleName}列表参数
-    * @return ${moduleName}VO列表
-    */
-    @Override
-    public PageVO<${entity}VO> page${entity}(${entity}PageParam ${entity?uncap_first}PageParam){
-        String ${entity?substring(0,1)?lower_case + entity?substring(1)}Id = ${entity?uncap_first}PageParam.get${entity}Id();
-        Page<${entity}> page = page(new Page<>(${entity?uncap_first}PageParam.getPageNo(), ${entity?uncap_first}PageParam.getPageSize()),
-                new LambdaQueryWrapper<${entity}>()
-                        .eq(ObjectUtil.isNotEmpty(${entity?substring(0,1)?lower_case + entity?substring(1)}Id), ${entity}::get${entity}Id, ${entity?substring(0,1)?lower_case + entity?substring(1)}Id)
-                        .orderByDesc(${entity}::getCreateTime)
-        );
-        return PageVO.addPageData(page, ${entity}Convertor.LIST.listEntityToListVO(page.getRecords()));
-    }
-
-    /**
-    * 查询${moduleName}详情
-    *
-    * @param ${entity?uncap_first}QueryParam 查询${moduleName}详情参数
-    * @return ${moduleName}VO
-    */
-    @Override
-    public ${entity}VO query${entity}(${entity}QueryParam ${entity?uncap_first}QueryParam){
-        return ${entity}Convertor.QUERY.entityToVo(${table.mapperName?uncap_first}.selectById(${entity?uncap_first}QueryParam.get${entity}Id()));
-    }
-
-    /**
     * 删除${moduleName}属性
     *
     * @param removeBaseParam 删除${moduleName}属性参数
@@ -115,4 +70,94 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
         ${table.mapperName?uncap_first}.deleteById(removeBaseParam.getSerializableId());
     }
 
+    /**
+    * 前台用户查询${moduleName}列表
+    *
+    * @param ${entity?uncap_first}ListParam 查询${moduleName}列表参数
+    * @return ${moduleName}VO列表
+    */
+    @Override
+    public List<${entity}VO> frontList${entity}(${entity}ListParam ${entity?uncap_first}ListParam){
+        String ${entity?substring(0,1)?lower_case + entity?substring(1)}Id = ${entity?uncap_first}ListParam.get${entity}Id();
+        List<${entity}> list =list(
+                new LambdaQueryWrapper<${entity}>()
+                        .eq(ObjectUtil.isNotEmpty(${entity?substring(0,1)?lower_case + entity?substring(1)}Id), ${entity}::get${entity}Id, ${entity?substring(0,1)?lower_case + entity?substring(1)}Id)
+                        .orderByDesc(${entity}::getCreateTime)
+        );
+        return ${entity}Convertor.LIST.listEntityToListVO(list);
+    }
+
+    /**
+    * 前台用户分页查询${moduleName}列表
+    *
+    * @param ${entity?uncap_first}PageParam 查询${moduleName}列表参数
+    * @return ${moduleName}VO列表
+    */
+    @Override
+    public PageVO<${entity}VO> frontPage${entity}(${entity}PageParam ${entity?uncap_first}PageParam){
+        String ${entity?substring(0,1)?lower_case + entity?substring(1)}Id = ${entity?uncap_first}PageParam.get${entity}Id();
+        Page<${entity}> page = page(new Page<>(${entity?uncap_first}PageParam.getPageNo(), ${entity?uncap_first}PageParam.getPageSize()),
+                new LambdaQueryWrapper<${entity}>()
+                        .eq(ObjectUtil.isNotEmpty(${entity?substring(0,1)?lower_case + entity?substring(1)}Id), ${entity}::get${entity}Id, ${entity?substring(0,1)?lower_case + entity?substring(1)}Id)
+                        .orderByDesc(${entity}::getCreateTime)
+        );
+        return PageVO.addPageData(page, ${entity}Convertor.LIST.listEntityToListVO(page.getRecords()));
+    }
+
+    /**
+    * 前台用户查询${moduleName}详情
+    *
+    * @param ${entity?uncap_first}QueryParam 查询${moduleName}详情参数
+    * @return ${moduleName}VO
+    */
+    @Override
+    public ${entity}VO frontQuery${entity}(${entity}QueryParam ${entity?uncap_first}QueryParam){
+        return ${entity}Convertor.QUERY.entityToVo(${table.mapperName?uncap_first}.selectById(${entity?uncap_first}QueryParam.get${entity}Id()));
+    }
+
+    /**
+    * 后台用户查询${moduleName}列表
+    *
+    * @param ${entity?uncap_first}ListParam 查询${moduleName}列表参数
+    * @return ${moduleName}VO列表
+    */
+    @Override
+    public List<${entity}VO> backList${entity}(${entity}ListParam ${entity?uncap_first}ListParam){
+        String ${entity?substring(0,1)?lower_case + entity?substring(1)}Id = ${entity?uncap_first}ListParam.get${entity}Id();
+        List<${entity}> list =list(
+                new LambdaQueryWrapper<${entity}>()
+                    .eq(ObjectUtil.isNotEmpty(${entity?substring(0,1)?lower_case + entity?substring(1)}Id), ${entity}::get${entity}Id, ${entity?substring(0,1)?lower_case + entity?substring(1)}Id)
+                    .orderByDesc(${entity}::getCreateTime)
+        );
+        return ${entity}Convertor.LIST.listEntityToListVO(list);
+    }
+
+    /**
+    * 后台用户分页查询${moduleName}列表
+    *
+    * @param ${entity?uncap_first}PageParam 查询${moduleName}列表参数
+    * @return ${moduleName}VO列表
+    */
+    @Override
+    public PageVO<${entity}VO> backPage${entity}(${entity}PageParam ${entity?uncap_first}PageParam){
+        String ${entity?substring(0,1)?lower_case + entity?substring(1)}Id = ${entity?uncap_first}PageParam.get${entity}Id();
+        Page<${entity}> page = page(new Page<>(${entity?uncap_first}PageParam.getPageNo(), ${entity?uncap_first}PageParam.getPageSize()),
+                new LambdaQueryWrapper<${entity}>()
+                    .eq(ObjectUtil.isNotEmpty(${entity?substring(0,1)?lower_case + entity?substring(1)}Id), ${entity}::get${entity}Id, ${entity?substring(0,1)?lower_case + entity?substring(1)}Id)
+                    .orderByDesc(${entity}::getCreateTime)
+        );
+        return PageVO.addPageData(page, ${entity}Convertor.LIST.listEntityToListVO(page.getRecords()));
+    }
+
+    /**
+    * 后台用户查询${moduleName}详情
+    *
+    * @param ${entity?uncap_first}QueryParam 查询${moduleName}详情参数
+    * @return ${moduleName}VO
+    */
+    @Override
+    public ${entity}VO backQuery${entity}(${entity}QueryParam ${entity?uncap_first}QueryParam){
+        return ${entity}Convertor.QUERY.entityToVo(${table.mapperName?uncap_first}.selectById(${entity?uncap_first}QueryParam.get${entity}Id()));
+    }        
+        
 }

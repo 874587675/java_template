@@ -33,34 +33,57 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
     void update${entity}(${entity}UpdateParam ${entity?uncap_first}UpdateParam);
 
     /**
-    * 查询${moduleName}列表
-    *
-    * @param ${entity?uncap_first}ListParam 查询${moduleName}列表参数
-    * @return ${moduleName}VO列表
-    */
-    List<${entity}VO> list${entity}(${entity}ListParam ${entity?uncap_first}ListParam);
-    
-    /**
-    * 分页查询${moduleName}列表
-    *
-    * @param ${entity?uncap_first}PageParam 查询${moduleName}列表参数
-    * @return ${moduleName}VO列表
-    */
-    PageVO<${entity}VO> page${entity}(${entity}PageParam ${entity?uncap_first}PageParam);
-
-    /**
-    * 查询${moduleName}详情
-    *
-    * @param ${entity?uncap_first}QueryParam 查询${moduleName}详情参数
-    * @return ${moduleName}VO
-    */
-    ${entity}VO query${entity}(${entity}QueryParam ${entity?uncap_first}QueryParam);
-
-    /**
     * 删除${moduleName}
     *
     * @param removeBaseParam 删除${moduleName}参数
     */
     void remove${entity}(RemoveBaseParam removeBaseParam);
 
-    }
+    /**
+    * 前台用户查询${moduleName}列表
+    *
+    * @param ${entity?uncap_first}ListParam 查询${moduleName}列表参数
+    * @return ${moduleName}VO列表
+    */
+    List<${entity}VO> frontList${entity}(${entity}ListParam ${entity?uncap_first}ListParam);
+    
+    /**
+    * 前台用户分页查询${moduleName}列表
+    *
+    * @param ${entity?uncap_first}PageParam 查询${moduleName}列表参数
+    * @return ${moduleName}VO列表
+    */
+    PageVO<${entity}VO> frontPage${entity}(${entity}PageParam ${entity?uncap_first}PageParam);
+
+    /**
+    * 前台用户查询${moduleName}详情
+    *
+    * @param ${entity?uncap_first}QueryParam 查询${moduleName}详情参数
+    * @return ${moduleName}VO
+    */
+    ${entity}VO frontQuery${entity}(${entity}QueryParam ${entity?uncap_first}QueryParam);
+        
+    /**
+    * 后台用户查询${moduleName}列表
+    *
+    * @param ${entity?uncap_first}ListParam 查询${moduleName}列表参数
+    * @return ${moduleName}VO列表
+    */
+    List<${entity}VO> backList${entity}(${entity}ListParam ${entity?uncap_first}ListParam);
+
+    /**
+    * 后台用户分页查询${moduleName}列表
+    *
+    * @param ${entity?uncap_first}PageParam 查询${moduleName}列表参数
+    * @return ${moduleName}VO列表
+    */
+    PageVO<${entity}VO> backPage${entity}(${entity}PageParam ${entity?uncap_first}PageParam);
+
+    /**
+    * 后台用户查询${moduleName}详情
+    *
+    * @param ${entity?uncap_first}QueryParam 查询${moduleName}详情参数
+    * @return ${moduleName}VO
+    */
+    ${entity}VO backQuery${entity}(${entity}QueryParam ${entity?uncap_first}QueryParam);        
+}
