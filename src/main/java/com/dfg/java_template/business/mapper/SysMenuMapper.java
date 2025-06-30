@@ -13,7 +13,7 @@ import java.util.List;
  * </p>
  *
  * @author zgc
- * @since 2025-06-05 17:27:43
+ * @since 2025-06-30 11:38:23
  */
 @Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenu> {

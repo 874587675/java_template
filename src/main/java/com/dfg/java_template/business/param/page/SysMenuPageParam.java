@@ -16,7 +16,7 @@ import java.io.Serial;
 /**
 * 菜单权限列表参数对象
 * @author zgc
-* @since 2025-06-05 17:27:43
+* @since 2025-06-30 11:38:23
 */
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor

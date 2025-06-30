@@ -25,11 +25,11 @@ import java.util.List;
 /**
 * 菜单权限 模块
 * @author zgc
-* @since 2025-05-22 19:02:08
+* @since 2025-06-30 11:38:23
 */
 @Api(value = "菜单权限模块", tags = "菜单权限模块相关接口")
 @RestController
-@RequestMapping("/api/v1/back")
+@RequestMapping("/api/v1/sysMenu/back")
 public class SysMenuController {
     @Resource
     private SysMenuService sysMenuService;
@@ -55,22 +55,40 @@ public class SysMenuController {
         return R.ok();
     }
 
-    @ApiOperation(value = "查询菜单权限列表", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/listSysMenu", produces = "application/json", consumes = "application/json")
-    public R<List<SysMenuVO>> listSysMenu(@Validated @RequestBody SysMenuListParam sysMenuListParam){
-        return R.ok(sysMenuService.listSysMenu(sysMenuListParam));
+    @ApiOperation(value = "前台用户查询菜单权限列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontListSysMenu", produces = "application/json", consumes = "application/json")
+    public R<List<SysMenuVO>> frontListSysMenu(@Validated @RequestBody SysMenuListParam sysMenuListParam){
+        return R.ok(sysMenuService.frontListSysMenu(sysMenuListParam));
     }
 
-    @ApiOperation(value = "分页查询菜单权限列表", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/pageSysMenu", produces = "application/json", consumes = "application/json")
-    public R<PageVO<SysMenuVO>> pageSysMenu(@Validated @RequestBody SysMenuPageParam sysMenuPageParam){
-        return R.ok(sysMenuService.pageSysMenu(sysMenuPageParam));
+    @ApiOperation(value = "前台用户分页查询菜单权限列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontPageSysMenu", produces = "application/json", consumes = "application/json")
+    public R<PageVO<SysMenuVO>> frontPageSysMenu(@Validated @RequestBody SysMenuPageParam sysMenuPageParam){
+        return R.ok(sysMenuService.frontPageSysMenu(sysMenuPageParam));
     }
 
-    @ApiOperation(value = "查询菜单权限详情", produces = "application/json", consumes = "application/json")
-    @PostMapping(value = "/querySysMenu", produces = "application/json", consumes = "application/json")
-    public R<SysMenuVO> querySysMenu(@Validated @RequestBody SysMenuQueryParam sysMenuQueryParam){
-        return R.ok(sysMenuService.querySysMenu(sysMenuQueryParam));
+    @ApiOperation(value = "前台用户查询菜单权限详情", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/frontQuerySysMenu", produces = "application/json", consumes = "application/json")
+    public R<SysMenuVO> frontQuerySysMenu(@Validated @RequestBody SysMenuQueryParam sysMenuQueryParam){
+        return R.ok(sysMenuService.frontQuerySysMenu(sysMenuQueryParam));
     }
+
+    @ApiOperation(value = "后台用户查询菜单权限列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backListSysMenu", produces = "application/json", consumes = "application/json")
+    public R<List<SysMenuVO>> backListSysMenu(@Validated @RequestBody SysMenuListParam sysMenuListParam){
+        return R.ok(sysMenuService.backListSysMenu(sysMenuListParam));
+        }
+
+    @ApiOperation(value = "后台用户分页查询菜单权限列表", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backPageSysMenu", produces = "application/json", consumes = "application/json")
+    public R<PageVO<SysMenuVO>> backPageSysMenu(@Validated @RequestBody SysMenuPageParam sysMenuPageParam){
+        return R.ok(sysMenuService.backPageSysMenu(sysMenuPageParam));
+        }
+    
+    @ApiOperation(value = "后台用户查询菜单权限详情", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/backQuerySysMenu", produces = "application/json", consumes = "application/json")
+    public R<SysMenuVO> backQuerySysMenu(@Validated @RequestBody SysMenuQueryParam sysMenuQueryParam){
+        return R.ok(sysMenuService.backQuerySysMenu(sysMenuQueryParam));
+        }            
 
 }

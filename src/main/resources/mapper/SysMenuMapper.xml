@@ -24,9 +24,10 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        menu_id, menu_name, parent_id, menu_sort, menu_type, visible, status, permission, remark, create_user_id, create_time, update_user_id, update_time, is_deleted, delete_time, version
+        menu_id, menu_name, parent_id, menu_sort, menu_type, visible, status, permission, remark, 
+        create_user_id, create_time, update_user_id, update_time, is_deleted, delete_time, version
     </sql>
-    
+
     <select id="selectMenuByUserId" resultType="java.lang.String">
         select m.permission
         from t_sys_menu as m

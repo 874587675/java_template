@@ -29,7 +29,7 @@ import java.util.List;
 * </p>
 *
 * @author zgc
-* @since 2025-06-05 17:27:43
+* @since 2025-06-30 11:38:23
 */
 @Service
 @Slf4j
@@ -60,51 +60,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
 
     /**
-    * 查询菜单权限列表
-    *
-    * @param sysMenuListParam 查询菜单权限列表参数
-    * @return 菜单权限VO列表
-    */
-    @Override
-    public List<SysMenuVO> listSysMenu(SysMenuListParam sysMenuListParam){
-        String sysMenuId = sysMenuListParam.getMenuId();
-        List<SysMenu> list =list(
-                new LambdaQueryWrapper<SysMenu>()
-                        .eq(ObjectUtil.isNotEmpty(sysMenuId), SysMenu::getMenuId, sysMenuId)
-                        .orderByDesc(SysMenu::getCreateTime)
-        );
-        return SysMenuConvertor.LIST.listEntityToListVO(list);
-    }
-
-    /**
-    * 分页查询菜单权限列表
-    *
-    * @param sysMenuPageParam 查询菜单权限列表参数
-    * @return 菜单权限VO列表
-    */
-    @Override
-    public PageVO<SysMenuVO> pageSysMenu(SysMenuPageParam sysMenuPageParam){
-        String sysMenuId = sysMenuPageParam.getMenuId();
-        Page<SysMenu> page = page(new Page<>(sysMenuPageParam.getPageNo(), sysMenuPageParam.getPageSize()),
-                new LambdaQueryWrapper<SysMenu>()
-                        .eq(ObjectUtil.isNotEmpty(sysMenuId), SysMenu::getMenuId, sysMenuId)
-                        .orderByDesc(SysMenu::getCreateTime)
-        );
-        return PageVO.addPageData(page, SysMenuConvertor.LIST.listEntityToListVO(page.getRecords()));
-    }
-
-    /**
-    * 查询菜单权限详情
-    *
-    * @param sysMenuQueryParam 查询菜单权限详情参数
-    * @return 菜单权限VO
-    */
-    @Override
-    public SysMenuVO querySysMenu(SysMenuQueryParam sysMenuQueryParam){
-        return SysMenuConvertor.QUERY.entityToVo(sysMenuMapper.selectById(sysMenuQueryParam.getMenuId()));
-    }
-
-    /**
     * 删除菜单权限属性
     *
     * @param removeBaseParam 删除菜单权限属性参数
@@ -115,4 +70,94 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         sysMenuMapper.deleteById(removeBaseParam.getSerializableId());
     }
 
+    /**
+    * 前台用户查询菜单权限列表
+    *
+    * @param sysMenuListParam 查询菜单权限列表参数
+    * @return 菜单权限VO列表
+    */
+    @Override
+    public List<SysMenuVO> frontListSysMenu(SysMenuListParam sysMenuListParam){
+        String sysMenuId = sysMenuListParam.getMenuId();
+        List<SysMenu> list =list(
+                new LambdaQueryWrapper<SysMenu>()
+                        .eq(ObjectUtil.isNotEmpty(sysMenuId), SysMenu::getMenuId, sysMenuId)
+                        .orderByDesc(SysMenu::getCreateTime)
+        );
+        return SysMenuConvertor.LIST.listEntityToListVO(list);
+    }
+
+    /**
+    * 前台用户分页查询菜单权限列表
+    *
+    * @param sysMenuPageParam 查询菜单权限列表参数
+    * @return 菜单权限VO列表
+    */
+    @Override
+    public PageVO<SysMenuVO> frontPageSysMenu(SysMenuPageParam sysMenuPageParam){
+        String sysMenuId = sysMenuPageParam.getMenuId();
+        Page<SysMenu> page = page(new Page<>(sysMenuPageParam.getPageNo(), sysMenuPageParam.getPageSize()),
+                new LambdaQueryWrapper<SysMenu>()
+                        .eq(ObjectUtil.isNotEmpty(sysMenuId), SysMenu::getMenuId, sysMenuId)
+                        .orderByDesc(SysMenu::getCreateTime)
+        );
+        return PageVO.addPageData(page, SysMenuConvertor.LIST.listEntityToListVO(page.getRecords()));
+    }
+
+    /**
+    * 前台用户查询菜单权限详情
+    *
+    * @param sysMenuQueryParam 查询菜单权限详情参数
+    * @return 菜单权限VO
+    */
+    @Override
+    public SysMenuVO frontQuerySysMenu(SysMenuQueryParam sysMenuQueryParam){
+        return SysMenuConvertor.QUERY.entityToVo(sysMenuMapper.selectById(sysMenuQueryParam.getMenuId()));
+    }
+
+    /**
+    * 后台用户查询菜单权限列表
+    *
+    * @param sysMenuListParam 查询菜单权限列表参数
+    * @return 菜单权限VO列表
+    */
+    @Override
+    public List<SysMenuVO> backListSysMenu(SysMenuListParam sysMenuListParam){
+        String sysMenuId = sysMenuListParam.getMenuId();
+        List<SysMenu> list =list(
+                new LambdaQueryWrapper<SysMenu>()
+                    .eq(ObjectUtil.isNotEmpty(sysMenuId), SysMenu::getMenuId, sysMenuId)
+                    .orderByDesc(SysMenu::getCreateTime)
+        );
+        return SysMenuConvertor.LIST.listEntityToListVO(list);
+    }
+
+    /**
+    * 后台用户分页查询菜单权限列表
+    *
+    * @param sysMenuPageParam 查询菜单权限列表参数
+    * @return 菜单权限VO列表
+    */
+    @Override
+    public PageVO<SysMenuVO> backPageSysMenu(SysMenuPageParam sysMenuPageParam){
+        String sysMenuId = sysMenuPageParam.getMenuId();
+        Page<SysMenu> page = page(new Page<>(sysMenuPageParam.getPageNo(), sysMenuPageParam.getPageSize()),
+                new LambdaQueryWrapper<SysMenu>()
+                    .eq(ObjectUtil.isNotEmpty(sysMenuId), SysMenu::getMenuId, sysMenuId)
+                    .orderByDesc(SysMenu::getCreateTime)
+        );
+        return PageVO.addPageData(page, SysMenuConvertor.LIST.listEntityToListVO(page.getRecords()));
+    }
+
+    /**
+    * 后台用户查询菜单权限详情
+    *
+    * @param sysMenuQueryParam 查询菜单权限详情参数
+    * @return 菜单权限VO
+    */
+    @Override
+    public SysMenuVO backQuerySysMenu(SysMenuQueryParam sysMenuQueryParam){
+        return SysMenuConvertor.QUERY.entityToVo(sysMenuMapper.selectById(sysMenuQueryParam.getMenuId()));
+    }        
+        
 }

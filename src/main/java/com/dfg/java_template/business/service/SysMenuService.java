@@ -13,7 +13,7 @@ import com.dfg.java_template.business.param.vo.SysMenuVO;
 import java.util.List;
 /**
 * @author zgc
-* @since 2025-06-05 17:27:43
+* @since 2025-06-30 11:38:23
 */
 public interface SysMenuService extends IService<SysMenu> {
 
@@ -32,34 +32,57 @@ public interface SysMenuService extends IService<SysMenu> {
     void updateSysMenu(SysMenuUpdateParam sysMenuUpdateParam);
 
     /**
-    * 查询菜单权限列表
-    *
-    * @param sysMenuListParam 查询菜单权限列表参数
-    * @return 菜单权限VO列表
-    */
-    List<SysMenuVO> listSysMenu(SysMenuListParam sysMenuListParam);
-    
-    /**
-    * 分页查询菜单权限列表
-    *
-    * @param sysMenuPageParam 查询菜单权限列表参数
-    * @return 菜单权限VO列表
-    */
-    PageVO<SysMenuVO> pageSysMenu(SysMenuPageParam sysMenuPageParam);
-
-    /**
-    * 查询菜单权限详情
-    *
-    * @param sysMenuQueryParam 查询菜单权限详情参数
-    * @return 菜单权限VO
-    */
-    SysMenuVO querySysMenu(SysMenuQueryParam sysMenuQueryParam);
-
-    /**
     * 删除菜单权限
     *
     * @param removeBaseParam 删除菜单权限参数
     */
     void removeSysMenu(RemoveBaseParam removeBaseParam);
 
-    }
+    /**
+    * 前台用户查询菜单权限列表
+    *
+    * @param sysMenuListParam 查询菜单权限列表参数
+    * @return 菜单权限VO列表
+    */
+    List<SysMenuVO> frontListSysMenu(SysMenuListParam sysMenuListParam);
+    
+    /**
+    * 前台用户分页查询菜单权限列表
+    *
+    * @param sysMenuPageParam 查询菜单权限列表参数
+    * @return 菜单权限VO列表
+    */
+    PageVO<SysMenuVO> frontPageSysMenu(SysMenuPageParam sysMenuPageParam);
+
+    /**
+    * 前台用户查询菜单权限详情
+    *
+    * @param sysMenuQueryParam 查询菜单权限详情参数
+    * @return 菜单权限VO
+    */
+    SysMenuVO frontQuerySysMenu(SysMenuQueryParam sysMenuQueryParam);
+        
+    /**
+    * 后台用户查询菜单权限列表
+    *
+    * @param sysMenuListParam 查询菜单权限列表参数
+    * @return 菜单权限VO列表
+    */
+    List<SysMenuVO> backListSysMenu(SysMenuListParam sysMenuListParam);
+
+    /**
+    * 后台用户分页查询菜单权限列表
+    *
+    * @param sysMenuPageParam 查询菜单权限列表参数
+    * @return 菜单权限VO列表
+    */
+    PageVO<SysMenuVO> backPageSysMenu(SysMenuPageParam sysMenuPageParam);
+
+    /**
+    * 后台用户查询菜单权限详情
+    *
+    * @param sysMenuQueryParam 查询菜单权限详情参数
+    * @return 菜单权限VO
+    */
+    SysMenuVO backQuerySysMenu(SysMenuQueryParam sysMenuQueryParam);        
+}
