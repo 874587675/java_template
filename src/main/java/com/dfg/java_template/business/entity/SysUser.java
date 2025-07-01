@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.io.Serial;
@@ -15,11 +13,12 @@ import java.io.Serial;
 * 后台用户表实体类对象
 *
 * @author zgc
-* @since 2025-06-30 11:42:56
+* @since 2025-07-01 15:33:56
 */
-@Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
+@Data
 @TableName(value = "t_sys_user")
 @ApiModel(value = "SysUser对象", description = "后台用户表")
 public class SysUser implements Serializable {
@@ -62,6 +61,10 @@ public class SysUser implements Serializable {
     @TableField(value = "last_login_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date lastLoginTime;
+
+    @ApiModelProperty(value = "最后登录IP地址")
+    @TableField(value = "last_ip_address")
+    private String lastIpAddress;
 
     @ApiModelProperty(value = "创建者ID")
     @TableField(value = "create_user_id", fill = FieldFill.INSERT)

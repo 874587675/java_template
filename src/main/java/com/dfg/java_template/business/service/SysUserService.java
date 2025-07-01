@@ -15,7 +15,7 @@ import com.dfg.java_template.framework.security.param.LoginBody;
 import java.util.List;
 /**
 * @author zgc
-* @since 2025-06-30 11:42:56
+* @since 2025-07-01 15:33:56
 */
 public interface SysUserService extends IService<SysUser> {
 
@@ -87,12 +87,10 @@ public interface SysUserService extends IService<SysUser> {
     * @return 后台用户VO
     */
     SysUserVO backQuerySysUser(SysUserQueryParam sysUserQueryParam);
-
     /**
      * 后台用户登录
      * @param loginBody 登录用户信息
      * @return 登录成功的token
      */
     String loginSysUser(LoginBody loginBody);
-
 }

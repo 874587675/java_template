@@ -32,17 +32,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.*;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
-* <p>
-* 用户信息表 服务实现类
-* </p>
-*
-* @author zgc
-* @since 2025-06-30 11:42:56
-*/
+ * <p>
+ * 用户信息表 服务实现类
+ * </p>
+ *
+ * @author zgc
+ * @since 2025-07-01 15:18:53
+ */
 @Service
 @Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
@@ -59,32 +63,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private RedisCache redisCache;
 
     /**
-    * 保存用户信息
-    *
-    * @param userSaveParam 保存用户信息参数
-    */
+     * 保存用户信息
+     *
+     * @param userSaveParam 保存用户信息参数
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveUser(UserSaveParam userSaveParam){
+    public void saveUser(UserSaveParam userSaveParam) {
         userMapper.insert(UserConvertor.SAVE.saveParamToEntity(userSaveParam));
     }
 
     /**
-    * 修改用户信息
-    *
-    * @param userUpdateParam 修改用户信息参数
-    */
+     * 修改用户信息
+     *
+     * @param userUpdateParam 修改用户信息参数
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateUser(UserUpdateParam userUpdateParam){
+    public void updateUser(UserUpdateParam userUpdateParam) {
         userMapper.updateById(UserConvertor.UPDATE.updateParamToEntity(userUpdateParam));
     }
 
     /**
-    * 删除用户信息属性
-    *
-    * @param removeBaseParam 删除用户信息属性参数
-    */
+     * 删除用户信息属性
+     *
+     * @param removeBaseParam 删除用户信息属性参数
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void removeUser(RemoveBaseParam removeBaseParam) {
@@ -92,15 +96,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     /**
-    * 前台用户查询用户信息列表
-    *
-    * @param userListParam 查询用户信息列表参数
-    * @return 用户信息VO列表
-    */
+     * 前台用户查询用户信息列表
+     *
+     * @param userListParam 查询用户信息列表参数
+     * @return 用户信息VO列表
+     */
     @Override
-    public List<UserVO> frontListUser(UserListParam userListParam){
+    public List<UserVO> frontListUser(UserListParam userListParam) {
         String userId = userListParam.getUserId();
-        List<User> list =list(
+        List<User> list = list(
                 new LambdaQueryWrapper<User>()
                         .eq(ObjectUtil.isNotEmpty(userId), User::getUserId, userId)
                         .orderByDesc(User::getCreateTime)
@@ -109,13 +113,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     /**
-    * 前台用户分页查询用户信息列表
-    *
-    * @param userPageParam 查询用户信息列表参数
-    * @return 用户信息VO列表
-    */
+     * 前台用户分页查询用户信息列表
+     *
+     * @param userPageParam 查询用户信息列表参数
+     * @return 用户信息VO列表
+     */
     @Override
-    public PageVO<UserVO> frontPageUser(UserPageParam userPageParam){
+    public PageVO<UserVO> frontPageUser(UserPageParam userPageParam) {
         String userId = userPageParam.getUserId();
         Page<User> page = page(new Page<>(userPageParam.getPageNo(), userPageParam.getPageSize()),
                 new LambdaQueryWrapper<User>()
@@ -126,63 +130,63 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     /**
-    * 前台用户查询用户信息详情
-    *
-    * @param userQueryParam 查询用户信息详情参数
-    * @return 用户信息VO
-    */
+     * 前台用户查询用户信息详情
+     *
+     * @param userQueryParam 查询用户信息详情参数
+     * @return 用户信息VO
+     */
     @Override
-    public UserVO frontQueryUser(UserQueryParam userQueryParam){
+    public UserVO frontQueryUser(UserQueryParam userQueryParam) {
         return UserConvertor.QUERY.entityToVo(userMapper.selectById(userQueryParam.getUserId()));
     }
 
     /**
-    * 后台用户查询用户信息列表
-    *
-    * @param userListParam 查询用户信息列表参数
-    * @return 用户信息VO列表
-    */
+     * 后台用户查询用户信息列表
+     *
+     * @param userListParam 查询用户信息列表参数
+     * @return 用户信息VO列表
+     */
     @Override
-    public List<UserVO> backListUser(UserListParam userListParam){
+    public List<UserVO> backListUser(UserListParam userListParam) {
         String userId = userListParam.getUserId();
-        List<User> list =list(
+        List<User> list = list(
                 new LambdaQueryWrapper<User>()
-                    .eq(ObjectUtil.isNotEmpty(userId), User::getUserId, userId)
-                    .orderByDesc(User::getCreateTime)
+                        .eq(ObjectUtil.isNotEmpty(userId), User::getUserId, userId)
+                        .orderByDesc(User::getCreateTime)
         );
         return UserConvertor.LIST.listEntityToListVO(list);
     }
 
     /**
-    * 后台用户分页查询用户信息列表
-    *
-    * @param userPageParam 查询用户信息列表参数
-    * @return 用户信息VO列表
-    */
+     * 后台用户分页查询用户信息列表
+     *
+     * @param userPageParam 查询用户信息列表参数
+     * @return 用户信息VO列表
+     */
     @Override
-    public PageVO<UserVO> backPageUser(UserPageParam userPageParam){
+    public PageVO<UserVO> backPageUser(UserPageParam userPageParam) {
         String userId = userPageParam.getUserId();
         Page<User> page = page(new Page<>(userPageParam.getPageNo(), userPageParam.getPageSize()),
                 new LambdaQueryWrapper<User>()
-                    .eq(ObjectUtil.isNotEmpty(userId), User::getUserId, userId)
-                    .orderByDesc(User::getCreateTime)
+                        .eq(ObjectUtil.isNotEmpty(userId), User::getUserId, userId)
+                        .orderByDesc(User::getCreateTime)
         );
         return PageVO.addPageData(page, UserConvertor.LIST.listEntityToListVO(page.getRecords()));
     }
 
     /**
-    * 后台用户查询用户信息详情
-    *
-    * @param userQueryParam 查询用户信息详情参数
-    * @return 用户信息VO
-    */
+     * 后台用户查询用户信息详情
+     *
+     * @param userQueryParam 查询用户信息详情参数
+     * @return 用户信息VO
+     */
     @Override
-    public UserVO backQueryUser(UserQueryParam userQueryParam){
+    public UserVO backQueryUser(UserQueryParam userQueryParam) {
         return UserConvertor.QUERY.entityToVo(userMapper.selectById(userQueryParam.getUserId()));
     }
 
     @Override
-    public String loginUser(LoginBody loginBody) {
+    public String loginUser(LoginBody loginBody, HttpServletRequest httpServletRequest) {
         String username = loginBody.getUsername();
         String password = loginBody.getPassword();
 
@@ -195,14 +199,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
 
         String userId = loginUser.getUserId();
+        String remoteAddr = httpServletRequest.getRemoteAddr();
         //更新最后登录时间
-        userMapper.update(new LambdaUpdateWrapper<User>().eq(User::getUserId, userId).set(User::getLastLoginTime, new Date()));
+        userMapper.update(new LambdaUpdateWrapper<User>()
+                .eq(User::getUserId, userId)
+                .set(User::getLastLoginTime, new Date())
+                .set(User::getLastIpAddress, remoteAddr))
+        ;
 
         Map<String, Object> claims = new HashMap<>();
 
         claims.put("userId", userId);
         claims.put("username", loginUser.getUsername());
         claims.put("role", LoginRole.FRONT_ROLE.getCode());
+        claims.put("ipAddress", remoteAddr);
 
         int expireTime = tokenService.getTokenParam().getExpireTime();
 

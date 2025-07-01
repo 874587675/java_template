@@ -3,7 +3,7 @@ package com.dfg.java_template.framework.security.service;
 import cn.hutool.core.util.ObjectUtil;
 import com.dfg.java_template.common.constant.CacheConstants;
 import com.dfg.java_template.common.constant.CommonConstants;
-import com.dfg.java_template.common.exception.token.TokenRequiredException;
+import com.dfg.java_template.common.exception.token.TokenRemoteLoginException;
 import com.dfg.java_template.framework.redis.RedisCache;
 import com.dfg.java_template.framework.security.constant.LoginRole;
 import io.jsonwebtoken.Claims;
@@ -65,7 +65,7 @@ public class TokenService {
      */
     public String generateToken(String userId, Map<String, Object> claims) {
         int expireMinutes = tokenParam.getExpireTime(); //单位分钟
-        
+
         String compact = Jwts.builder()
                 .setSubject(userId)  //标识token是给谁使用
                 .setClaims(claims)     //自定义数据
@@ -75,10 +75,10 @@ public class TokenService {
                 .compact();
 
         log.info("生成token令牌成功");
-        String role =(String)claims.get("role");
-        if (LoginRole.FRONT_ROLE.getCode().equals(role)){
+        String role = (String) claims.get("role");
+        if (LoginRole.FRONT_ROLE.getCode().equals(role)) {
             redisCache.setCacheObject(CacheConstants.LOGIN_TOKEN_USER + CacheConstants.FRONT_KEY + userId, compact, expireMinutes, TimeUnit.MINUTES);    //将令牌存入redis中
-        }else if (LoginRole.BACK_ROLE.getCode().equals(role)){
+        } else if (LoginRole.BACK_ROLE.getCode().equals(role)) {
             redisCache.setCacheObject(CacheConstants.LOGIN_TOKEN_USER + CacheConstants.BACK_KEY + userId, compact, expireMinutes, TimeUnit.MINUTES);
         }
         return compact;
@@ -128,23 +128,26 @@ public class TokenService {
      */
     public String getToken(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         String token = httpServletRequest.getHeader(tokenParam.getHeader());
-        if (ObjectUtil.isEmpty(token)){
-            throw new TokenRequiredException();
-        }
+        String ipRemoteAddress = httpServletRequest.getRemoteAddr();
+        
         if (ObjectUtil.isNotEmpty(token) && token.startsWith(CommonConstants.TOKEN_PREFIX)) {
             token = token.replace(CommonConstants.TOKEN_PREFIX, "");
             Claims claims = parseToken(token);
             String userId = claims.get("userId", String.class);
             String role = claims.get("role", String.class);
+            String ipAddress = claims.get("ipAddress", String.class);
+            if (!ipAddress.equals(ipRemoteAddress)) {
+                throw new TokenRemoteLoginException();
+            }
             Date expiration = claims.getExpiration();
             long nowTime = System.currentTimeMillis();
             if ((expiration.getTime() - nowTime) <= tokenParam.getRefreshMinTime() * MINUTE_MILLISECOND) {
                 String refreshToken = generateToken(userId, claims);
                 httpServletResponse.setHeader("X-Refresh-Token", refreshToken);
-                if (LoginRole.FRONT_ROLE.getCode().equals(role)){
-                    redisCache.expire(CacheConstants.LOGIN_USER + CacheConstants.FRONT_KEY + userId , tokenParam.getExpireTime(), TimeUnit.MINUTES);
-                }else if (LoginRole.BACK_ROLE.getCode().equals(role)){
-                    redisCache.expire(CacheConstants.LOGIN_USER + CacheConstants.BACK_KEY + userId , tokenParam.getExpireTime(), TimeUnit.MINUTES);
+                if (LoginRole.FRONT_ROLE.getCode().equals(role)) {
+                    redisCache.expire(CacheConstants.LOGIN_USER + CacheConstants.FRONT_KEY + userId, tokenParam.getExpireTime(), TimeUnit.MINUTES);
+                } else if (LoginRole.BACK_ROLE.getCode().equals(role)) {
+                    redisCache.expire(CacheConstants.LOGIN_USER + CacheConstants.BACK_KEY + userId, tokenParam.getExpireTime(), TimeUnit.MINUTES);
                 }
             }
         }

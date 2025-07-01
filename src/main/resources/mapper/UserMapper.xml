@@ -14,6 +14,7 @@
         <result column="phone" property="phone" />
         <result column="status" property="status" />
         <result column="last_login_time" property="lastLoginTime" />
+        <result column="last_ip_address" property="lastIpAddress" />
         <result column="is_deleted" property="isDeleted" />
         <result column="delete_time" property="deleteTime" />
         <result column="create_time" property="createTime" />
@@ -23,7 +24,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id, user_name, password, sex, nick_name, avatar, birthday, phone, status, last_login_time, is_deleted, delete_time, create_time, update_time, version
+        user_id, user_name, password, sex, nick_name, avatar, birthday, phone, status, last_login_time, last_ip_address, is_deleted, delete_time, create_time, update_time, version
     </sql>
 
 </mapper>

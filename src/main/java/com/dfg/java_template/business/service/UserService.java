@@ -12,10 +12,11 @@ import com.dfg.java_template.business.param.update.UserUpdateParam;
 import com.dfg.java_template.business.param.vo.UserVO;
 import com.dfg.java_template.framework.security.param.LoginBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 /**
 * @author zgc
-* @since 2025-06-30 11:42:56
+* @since 2025-07-01 15:18:53
 */
 public interface UserService extends IService<User> {
 
@@ -87,13 +88,12 @@ public interface UserService extends IService<User> {
     * @return 用户信息VO
     */
     UserVO backQueryUser(UserQueryParam userQueryParam);
-
     /**
      * 用户登录
      * @param loginBody 登录参数
      * @return token 令牌
      */
-    String loginUser(LoginBody loginBody);
+    String loginUser(LoginBody loginBody, HttpServletRequest httpServletRequest);
 
     void addUser();
 }

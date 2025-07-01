@@ -3,6 +3,7 @@ package com.dfg.java_template.framework.security.filter;
 import cn.hutool.core.util.ObjectUtil;
 import com.dfg.java_template.common.constant.CacheConstants;
 import com.dfg.java_template.common.exception.token.TokenInvalidException;
+import com.dfg.java_template.common.exception.token.TokenRequiredException;
 import com.dfg.java_template.framework.redis.RedisCache;
 import com.dfg.java_template.framework.security.constant.LoginRole;
 import com.dfg.java_template.framework.security.core.AuthenticationContextHolder;
@@ -16,6 +17,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.annotation.Resource;
@@ -24,6 +27,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 @Slf4j
 @Component
@@ -35,14 +39,18 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private RedisCache redisCache;
 
     @Override
-    protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain chain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain chain) throws ServletException, IOException {
         LoginUser loginUser = new LoginUser();
+        if (!isVerifyRequest(request)) {
+            chain.doFilter(request, response);
+            return;
+        }
         String token = tokenService.getToken(request, response);
-
-        if (ObjectUtil.isNotNull(token) && ObjectUtil.isNull(SecurityUtils.getAuthentication())) {
+        if (ObjectUtil.isEmpty(token)) {
+            throw new TokenRequiredException();
+        }
+        if (ObjectUtil.isNotEmpty(token) && ObjectUtil.isEmpty(SecurityUtils.getAuthentication())) {
             Claims claims = tokenService.parseToken(token);
-
             boolean flag = tokenService.verifyToken(token);
             if (!flag) {
                 throw new TokenInvalidException();
@@ -50,7 +58,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             String userId = claims.get("userId", String.class);
             String role = claims.get("role", String.class);
 
-            
             if (LoginRole.FRONT_ROLE.getCode().equals(role)) {
                 loginUser = redisCache.getCacheObject(CacheConstants.LOGIN_USER + CacheConstants.FRONT_KEY + userId);
                 AuthenticationContextHolder.setFrontUserId(userId);
@@ -66,4 +73,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
+    private boolean isVerifyRequest(HttpServletRequest request) {
+        PathMatcher pathMatcher = new AntPathMatcher();
+        String uri = request.getRequestURI();
+        String[] securePatterns = {
+                "/**/front/**",  // 匹配任意层级的front路径
+                "/**/back/**",   // 匹配任意层级的back路径
+        };
+        return Arrays.stream(securePatterns)
+                .anyMatch(pattern -> pathMatcher.match(pattern, uri));
+    }
 }

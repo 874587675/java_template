@@ -9,7 +9,7 @@ import java.io.Serial;
 /**
 * 后台用户查询参数
 * @author zgc
-* @since 2025-06-30 11:42:56
+* @since 2025-07-01 15:33:56
 */
 @AllArgsConstructor
 @NoArgsConstructor

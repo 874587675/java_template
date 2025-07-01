@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
 * 后台用户新增参数对象
 * @author zgc
-* @since 2025-06-30 11:42:56
+* @since 2025-07-01 15:33:56
 */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -49,5 +49,8 @@ public class SysUserSaveParam implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "最后登录时间")
     private Date lastLoginTime;
+
+    @ApiModelProperty(value = "最后登录IP地址")
+    private String lastIpAddress;
 
 }

@@ -44,14 +44,14 @@ import java.util.concurrent.TimeUnit;
 * </p>
 *
 * @author zgc
-* @since 2025-06-30 11:42:56
+* @since 2025-07-01 15:33:56
 */
 @Service
 @Slf4j
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
     @Resource
     private SysUserMapper sysUserMapper;
-
+    
     @Resource(name = "backendAuthenticationManager")
     private AuthenticationManager backendAuthenticationManager;
 

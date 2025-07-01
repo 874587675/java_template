@@ -21,7 +21,7 @@ public class MybatisPlusGenerateCode {
         List<String> tableNames = new ArrayList<>();
 //        tableNames.add("t_user");
 //        
-//        tableNames.add("t_sys_user");
+        tableNames.add("t_sys_user");
 //        tableNames.add("t_sys_role");
 //        tableNames.add("t_sys_user_role");
 //        tableNames.add("t_sys_menu");   
@@ -96,7 +96,7 @@ public class MybatisPlusGenerateCode {
                             .formatServiceFileName("%sService") // 自定义 Service 文件名
                             .serviceImplTemplate("/templates/serviceImpl.java") // 设置 ServiceImpl 模板
                             .formatServiceImplFileName("%sServiceImpl") // 自定义 ServiceImpl 文件名
-                            .enableFileOverride() // 覆盖已生成文件
+//                            .enableFileOverride() // 覆盖已生成文件
 
                             // Controller 策略
                             .controllerBuilder()

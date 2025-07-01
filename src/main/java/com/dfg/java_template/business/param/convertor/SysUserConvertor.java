@@ -14,7 +14,7 @@ import java.util.List;
 * SysUserConvertor
 *
 * @author zgc
-* @since 2025-06-30 11:42:56
+* @since 2025-07-01 15:33:56
 */
 @Mapper
 public interface SysUserConvertor extends AbstractConvertor<SysUserSaveParam , SysUserUpdateParam, SysUserVO, SysUser,List<SysUser>,List<SysUserVO>> {

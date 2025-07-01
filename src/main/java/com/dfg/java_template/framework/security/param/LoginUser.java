@@ -48,6 +48,11 @@ public class LoginUser implements UserDetails, Serializable {
     private Integer status;
 
     /**
+     * 最后登录地址ip
+     */
+    private String lastLoginAddress;
+    
+    /**
      * 用户角色列表
      */
     private Collection<String> roles;

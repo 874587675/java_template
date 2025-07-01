@@ -14,7 +14,7 @@ import java.io.Serial;
 /**
 * 用户信息列表参数对象
 * @author zgc
-* @since 2025-06-30 11:42:56
+* @since 2025-07-01 15:18:53
 */
 @AllArgsConstructor
 @NoArgsConstructor

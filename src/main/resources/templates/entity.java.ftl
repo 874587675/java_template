@@ -16,8 +16,8 @@ import java.io.Serial;
 * @author ${author}
 * @since ${date}
 */
-@Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Data
 @TableName(value = "<#if schemaName??>${schemaName}</#if>${table.name}")

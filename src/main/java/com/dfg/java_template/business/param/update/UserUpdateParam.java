@@ -14,7 +14,7 @@ import java.io.Serial;
 /**
 * 用户信息修改参数
 * @author zgc
-* @since 2025-06-30 11:42:56
+* @since 2025-07-01 15:18:53
 */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -57,5 +57,8 @@ public class UserUpdateParam implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value="最后登录时间")
     private Date lastLoginTime;
+
+    @ApiModelProperty(value="最后登录IP地址")
+    private String lastIpAddress;
 
 }

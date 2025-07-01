@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -95,8 +96,8 @@ public class UserController {
 
     @ApiOperation(value = "前台用户账号密码登录", produces = "application/json", consumes = "application/json")
     @PostMapping(value = "/loginUser", produces = "application/json", consumes = "application/json")
-    public R<String> loginUser(@Validated @RequestBody LoginBody loginBody) {
-        return R.ok(userService.loginUser(loginBody));
+    public R<String> loginUser(@Validated @RequestBody LoginBody loginBody,HttpServletRequest httpServletRequest) {
+        return R.ok(userService.loginUser(loginBody,httpServletRequest));
     }
 
     @ApiOperation(value = "后台批量添加用户测试", produces = "application/json", consumes = "application/json")

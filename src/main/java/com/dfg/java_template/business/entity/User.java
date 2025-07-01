@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.io.Serial;
@@ -14,19 +13,18 @@ import java.io.Serial;
 * 用户信息表实体类对象
 *
 * @author zgc
-* @since 2025-06-30 11:42:56
+* @since 2025-07-01 15:18:53
 */
-@Builder
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Data
 @TableName(value = "t_user")
 @ApiModel(value = "User对象", description = "用户信息表")
 public class User implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-    
     @ApiModelProperty(value = "用户ID")
     @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private String userId;
@@ -68,6 +66,10 @@ public class User implements Serializable {
     @TableField(value = "last_login_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date lastLoginTime;
+
+    @ApiModelProperty(value = "最后登录IP地址")
+    @TableField(value = "last_ip_address")
+    private String lastIpAddress;
 
     @ApiModelProperty(value = "逻辑删除（0-未删除 1-已删除）")
     @TableField(value = "is_deleted", fill = FieldFill.INSERT)

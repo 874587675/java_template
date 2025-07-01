@@ -16,7 +16,7 @@ import java.util.Date;
 /**
 * 用户信息VO对象
 * @author zgc
-* @since 2025-06-30 11:42:56
+* @since 2025-07-01 15:18:53
 */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -60,9 +60,11 @@ public class UserVO implements Serializable, ValidUser {
     @ApiModelProperty(value="最后登录时间")
     private Date lastLoginTime;
 
+    @ApiModelProperty(value="最后登录IP地址")
+    private String lastIpAddress;
+
     @Override
     public String getPassword() {
         return this.password;
     }
-
 }
