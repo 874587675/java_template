@@ -4,9 +4,8 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.io.Serial;
@@ -17,15 +16,17 @@ import java.io.Serial;
 * @author zgc
 * @since 2025-06-30 11:42:56
 */
-@Getter
-@Setter
 @Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName(value = "t_user")
 @ApiModel(value = "User对象", description = "用户信息表")
 public class User implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
+    
     @ApiModelProperty(value = "用户ID")
     @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private String userId;

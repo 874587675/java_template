@@ -4,15 +4,11 @@
     <!-- 日志存放路径，使用当前项目目录 -->
     <property name="log.path" value="./logs" />
 
-    <!-- 按日期创建子目录 -->
-    <timestamp key="dailyDir" datePattern="yyyy-MM-dd"/>
-    <property name="dailyLogDir" value="${log.path}/${dailyDir}" />
-
     <!-- 日志输出格式 -->
     <property name="log.pattern" value="%cyan(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %magenta(%-35logger{35}:%-4line) %yellow(%thread) %green([%X{LOG_ID}]) %msg%n" />
 
     <property name="file.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-30logger{30}:%-4line [%X{LOG_ID}] %msg%n" />
-    
+
     <!-- 控制台输出 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -22,9 +18,9 @@
 
     <!-- 系统信息日志输出 -->
     <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${dailyLogDir}/sys-info.log</file>
+        <!-- 移除固定文件路径，完全依赖滚动策略 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${dailyLogDir}/sys-info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${log.path}/%d{yyyy-MM-dd}/sys-info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
             <maxHistory>30</maxHistory>
             <totalSizeCap>1GB</totalSizeCap>
@@ -41,9 +37,9 @@
 
     <!-- 错误日志输出 -->
     <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${dailyLogDir}/sys-error.log</file>
+        <!-- 移除固定文件路径，完全依赖滚动策略 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${dailyLogDir}/sys-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${log.path}/%d{yyyy-MM-dd}/sys-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
             <maxHistory>30</maxHistory>
             <totalSizeCap>1GB</totalSizeCap>
@@ -60,9 +56,9 @@
 
     <!-- 用户访问日志输出 -->
     <appender name="sys-user" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${dailyLogDir}/sys-user.log</file>
+        <!-- 移除固定文件路径，完全依赖滚动策略 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${dailyLogDir}/sys-user.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${log.path}/%d{yyyy-MM-dd}/sys-user.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
             <maxHistory>30</maxHistory>
             <totalSizeCap>1GB</totalSizeCap>
@@ -72,11 +68,11 @@
         </encoder>
     </appender>
 
-    <!-- 根日志记录器，确保输出到控制台 -->
+    <!-- 根日志记录器 -->
     <root level="info">
-        <appender-ref ref="console" />   <!-- 控制台输出 -->
-        <appender-ref ref="file_info" /> <!-- 系统信息日志 -->
-        <appender-ref ref="file_error" /> <!-- 错误日志 -->
-        <appender-ref ref="sys-user" />   <!-- 用户访问日志 -->
+        <appender-ref ref="console" />
+        <appender-ref ref="file_info" />
+        <appender-ref ref="file_error" />
+        <appender-ref ref="sys-user" />
     </root>
 </configuration>

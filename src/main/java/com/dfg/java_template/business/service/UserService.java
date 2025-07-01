@@ -1,15 +1,17 @@
 package com.dfg.java_template.business.service;
 
-import com.dfg.java_template.business.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dfg.java_template.business.param.page.vo.PageVO;
-import com.dfg.java_template.business.param.save.UserSaveParam;
-import com.dfg.java_template.business.param.update.UserUpdateParam;
+import com.dfg.java_template.business.entity.User;
 import com.dfg.java_template.business.param.list.UserListParam;
+import com.dfg.java_template.business.param.page.UserPageParam;
+import com.dfg.java_template.business.param.page.vo.PageVO;
 import com.dfg.java_template.business.param.query.UserQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
-import com.dfg.java_template.business.param.page.UserPageParam;
+import com.dfg.java_template.business.param.save.UserSaveParam;
+import com.dfg.java_template.business.param.update.UserUpdateParam;
 import com.dfg.java_template.business.param.vo.UserVO;
+import com.dfg.java_template.framework.security.param.LoginBody;
+
 import java.util.List;
 /**
 * @author zgc
@@ -84,5 +86,14 @@ public interface UserService extends IService<User> {
     * @param userQueryParam 查询用户信息详情参数
     * @return 用户信息VO
     */
-    UserVO backQueryUser(UserQueryParam userQueryParam);        
+    UserVO backQueryUser(UserQueryParam userQueryParam);
+
+    /**
+     * 用户登录
+     * @param loginBody 登录参数
+     * @return token 令牌
+     */
+    String loginUser(LoginBody loginBody);
+
+    void addUser();
 }

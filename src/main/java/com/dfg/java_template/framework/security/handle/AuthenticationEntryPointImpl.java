@@ -38,8 +38,8 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
         requestUrl.put("requestUrl", request.getRequestURI());
         int code = HttpStatus.UNAUTHORIZED;
         String msg = StringUtils.replaceBraces(AUTHENTICATION_EXCEPTION, requestUrl);
-        
-        log.error("认证失败 \n 路径: {} \n  异常类型: {} \n  原因: {} \n",
+
+        log.error("\n认证失败\n路径: {} \n异常类型: {}\n原因: {}\n",
                 request.getRequestURI(),
                 e.getClass().getSimpleName(),
                 e.getMessage());

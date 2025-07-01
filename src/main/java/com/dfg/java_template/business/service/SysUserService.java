@@ -1,15 +1,17 @@
 package com.dfg.java_template.business.service;
 
-import com.dfg.java_template.business.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dfg.java_template.business.param.page.vo.PageVO;
-import com.dfg.java_template.business.param.save.SysUserSaveParam;
-import com.dfg.java_template.business.param.update.SysUserUpdateParam;
+import com.dfg.java_template.business.entity.SysUser;
 import com.dfg.java_template.business.param.list.SysUserListParam;
+import com.dfg.java_template.business.param.page.SysUserPageParam;
+import com.dfg.java_template.business.param.page.vo.PageVO;
 import com.dfg.java_template.business.param.query.SysUserQueryParam;
 import com.dfg.java_template.business.param.remove.RemoveBaseParam;
-import com.dfg.java_template.business.param.page.SysUserPageParam;
+import com.dfg.java_template.business.param.save.SysUserSaveParam;
+import com.dfg.java_template.business.param.update.SysUserUpdateParam;
 import com.dfg.java_template.business.param.vo.SysUserVO;
+import com.dfg.java_template.framework.security.param.LoginBody;
+
 import java.util.List;
 /**
 * @author zgc
@@ -84,5 +86,13 @@ public interface SysUserService extends IService<SysUser> {
     * @param sysUserQueryParam 查询后台用户详情参数
     * @return 后台用户VO
     */
-    SysUserVO backQuerySysUser(SysUserQueryParam sysUserQueryParam);        
+    SysUserVO backQuerySysUser(SysUserQueryParam sysUserQueryParam);
+
+    /**
+     * 后台用户登录
+     * @param loginBody 登录用户信息
+     * @return 登录成功的token
+     */
+    String loginSysUser(LoginBody loginBody);
+
 }

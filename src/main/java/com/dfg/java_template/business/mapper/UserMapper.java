@@ -1,7 +1,7 @@
 package com.dfg.java_template.business.mapper;
 
 import com.dfg.java_template.business.entity.User;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dfg.java_template.framework.generate.abstracts.AbstractMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2025-06-30 11:42:56
  */
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends AbstractMapper<User> {
 
 }

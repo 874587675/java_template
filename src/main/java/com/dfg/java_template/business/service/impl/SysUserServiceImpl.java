@@ -2,6 +2,7 @@ package com.dfg.java_template.business.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dfg.java_template.business.entity.SysUser;
@@ -16,12 +17,26 @@ import com.dfg.java_template.business.param.save.SysUserSaveParam;
 import com.dfg.java_template.business.param.update.SysUserUpdateParam;
 import com.dfg.java_template.business.param.vo.SysUserVO;
 import com.dfg.java_template.business.service.SysUserService;
+import com.dfg.java_template.common.constant.CacheConstants;
+import com.dfg.java_template.framework.redis.RedisCache;
+import com.dfg.java_template.framework.security.constant.LoginRole;
+import com.dfg.java_template.framework.security.core.AuthenticationContextHolder;
+import com.dfg.java_template.framework.security.param.LoginBody;
+import com.dfg.java_template.framework.security.param.LoginUser;
+import com.dfg.java_template.framework.security.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
 * <p>
@@ -36,6 +51,15 @@ import java.util.List;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
     @Resource
     private SysUserMapper sysUserMapper;
+
+    @Resource(name = "backendAuthenticationManager")
+    private AuthenticationManager backendAuthenticationManager;
+
+    @Resource
+    private TokenService tokenService;
+
+    @Resource
+    private RedisCache redisCache;
 
     /**
     * 保存后台用户
@@ -158,6 +182,35 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUserVO backQuerySysUser(SysUserQueryParam sysUserQueryParam){
         return SysUserConvertor.QUERY.entityToVo(sysUserMapper.selectById(sysUserQueryParam.getUserId()));
-    }        
-        
+    }
+
+    @Override
+    public String loginSysUser(LoginBody loginBody) {
+        String username = loginBody.getUsername();
+        String password = loginBody.getPassword();
+
+        // 这里的AuthenticationContextHolder.setContext(authenticationToken)是为了在后续的操作中可以获取到当前登录用户的信息
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+        AuthenticationContextHolder.setBackContext(authenticationToken);
+        // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
+        Authentication authentication = backendAuthenticationManager.authenticate(authenticationToken);
+
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+
+        String userId = loginUser.getUserId();
+
+        sysUserMapper.update(new LambdaUpdateWrapper<SysUser>().eq(SysUser::getUserId, userId).set(SysUser::getLastLoginTime, new Date()));//更新最后登录时间
+
+        Map<String, Object> claims = new HashMap<>();
+
+        claims.put("userId", userId);
+        claims.put("username", loginUser.getUsername());
+        claims.put("role", LoginRole.BACK_ROLE.getCode());
+
+        int expireTime = tokenService.getTokenParam().getExpireTime();
+
+        redisCache.setCacheObject(CacheConstants.LOGIN_USER + CacheConstants.BACK_KEY + userId, loginUser, expireTime, TimeUnit.MINUTES);
+
+        return tokenService.generateToken(userId, claims);
+    }
 }

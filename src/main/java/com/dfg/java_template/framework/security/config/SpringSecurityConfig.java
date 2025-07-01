@@ -81,8 +81,7 @@ public class SpringSecurityConfig {
                 // 授权配置
                 .authorizeHttpRequests(requests -> {
                     //放行swagger相关接口
-                    requests.antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v2/api-docs/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**", "/doc.html").permitAll()
-                            .antMatchers("/**/back/**", "/**/front/**").authenticated()
+                    requests.antMatchers("/**/back/**", "/**/front/**").authenticated()
                             .anyRequest().permitAll();  // 其余请求放行
                 })
                 // 先添加JWT过滤器

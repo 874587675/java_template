@@ -47,7 +47,7 @@ public class PasswordService {
      */
     public void validatePassword(ValidUser validUser) {
         // 获取当前用户的认证信息
-        Authentication authentication = AuthenticationContextHolder.getContext();
+        Authentication authentication = AuthenticationContextHolder.getFrontContext();
         // 获取当前用户的输入认证对象
         String username = authentication.getName();
         // 获取当前用户的输入认证凭证
@@ -69,9 +69,6 @@ public class PasswordService {
         }
     }
 
-    
-    
-    
 
     /**
      * 密码匹配
@@ -83,5 +80,5 @@ public class PasswordService {
     public boolean matches(String password, String rawPassword) {
         return SecurityUtils.matchesPassword(password, rawPassword);
     }
-    
+
 }
