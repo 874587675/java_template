@@ -7,6 +7,6 @@ public class TokenRemoteLoginException extends TokenException {
     private static final long serialVersionUID = 1L;
 
     public TokenRemoteLoginException() {
-        super("token.remote.login", null);
+        super(10003,"token.remote.login", null);
     }
 }

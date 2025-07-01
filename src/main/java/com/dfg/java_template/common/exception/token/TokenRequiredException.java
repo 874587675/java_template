@@ -7,6 +7,6 @@ public class TokenRequiredException extends TokenException {
     private static final long serialVersionUID = 1L;
 
     public TokenRequiredException() {
-        super("token.required", null);
+        super(10001,"token.required", null);
     }
 }

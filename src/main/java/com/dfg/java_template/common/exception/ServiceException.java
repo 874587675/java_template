@@ -31,5 +31,11 @@ public final class ServiceException extends RuntimeException implements Serializ
         this.message = message;
     }
     
+    public ServiceException(ServiceErrorEnum serviceErrorEnum) {
+        super(serviceErrorEnum.getDesc());
+        this.code = serviceErrorEnum.getCode();
+        this.message = serviceErrorEnum.getDesc();
+    }
+    
 
 }

@@ -51,7 +51,7 @@ public class StringUtils {
             return template;
         }
 
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         Matcher matcher = BRACE_PATTERN.matcher(template);
 
         while (matcher.find()) {

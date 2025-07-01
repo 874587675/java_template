@@ -3,7 +3,8 @@ package com.dfg.java_template.framework.security.service;
 import cn.hutool.core.util.ObjectUtil;
 import com.dfg.java_template.common.constant.CacheConstants;
 import com.dfg.java_template.common.constant.CommonConstants;
-import com.dfg.java_template.common.exception.token.TokenRemoteLoginException;
+import com.dfg.java_template.common.exception.ServiceErrorEnum;
+import com.dfg.java_template.common.exception.ServiceException;
 import com.dfg.java_template.framework.redis.RedisCache;
 import com.dfg.java_template.framework.security.constant.LoginRole;
 import io.jsonwebtoken.Claims;
@@ -137,7 +138,7 @@ public class TokenService {
             String role = claims.get("role", String.class);
             String ipAddress = claims.get("ipAddress", String.class);
             if (!ipAddress.equals(ipRemoteAddress)) {
-                throw new TokenRemoteLoginException();
+                throw new ServiceException(ServiceErrorEnum.TOKEN_REMOTE_LOGIN);
             }
             Date expiration = claims.getExpiration();
             long nowTime = System.currentTimeMillis();

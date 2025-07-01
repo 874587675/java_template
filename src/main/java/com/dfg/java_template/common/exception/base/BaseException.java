@@ -29,7 +29,7 @@ public class BaseException extends RuntimeException {
     /**
      * 错误码
      */
-    private String code;
+    private Integer code;
 
     /**
      * 错误码对应的参数
@@ -39,34 +39,39 @@ public class BaseException extends RuntimeException {
     /**
      * 错误消息
      */
-    private String defaultMessage;
-    
-    public BaseException(String module, String code, Object[] args) {
-        this(module, code, args, null);
+    private String message;
+
+    /**
+     * 错误消息
+     */
+    private String defaultMessage = "系统异常";
+
+    public BaseException(String module, Integer code, Object[] args, String message) {
+        this(module, code, args, message, null);
     }
 
     public BaseException(String module, String defaultMessage) {
-        this(module, null, null, defaultMessage);
+        this(module, null, null, null, defaultMessage);
     }
 
-    public BaseException(String code, Object[] args) {
-        this(null, code, args, null);
+    public BaseException(Integer code, String message, Object[] args) {
+        this(null, code, args, message, null);
     }
 
     public BaseException(String defaultMessage) {
-        this(null, null, null, defaultMessage);
+        this(null, null, null, null, defaultMessage);
     }
 
     @Override
     public String getMessage() {
-        String message = null;
-        if (!ObjectUtil.isEmpty(code)) {
-            message = MessageUtils.message(code, args);
+        String result = null;
+        if (!ObjectUtil.isEmpty(this.message)) {
+            result = MessageUtils.message(this.message, this.args);
         }
-        if (message == null) {
-            message = defaultMessage;
+        if (result == null) {
+            result = this.defaultMessage;
         }
-        return message;
+        return result;
     }
 
 }

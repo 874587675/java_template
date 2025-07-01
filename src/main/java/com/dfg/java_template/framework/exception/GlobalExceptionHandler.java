@@ -25,5 +25,4 @@ public class GlobalExceptionHandler {
         Integer code = e.getCode();
         return ObjectUtil.isNotNull(code) ? AjaxResult.error(code, e.getMessage()) : AjaxResult.error(e.getMessage());
     }
-
 }

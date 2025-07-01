@@ -5,8 +5,8 @@ import java.io.Serial;
 public class TokenInvalidException extends TokenException{
     @Serial
     private static final long serialVersionUID = 1L;
-    
+
     public TokenInvalidException() {
-        super("token.invalid", null);
+        super(10002,"token.invalid", null);
     }
 }

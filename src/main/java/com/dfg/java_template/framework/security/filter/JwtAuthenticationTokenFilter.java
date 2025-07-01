@@ -1,7 +1,9 @@
 package com.dfg.java_template.framework.security.filter;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.alibaba.fastjson2.JSON;
 import com.dfg.java_template.common.constant.CacheConstants;
+import com.dfg.java_template.common.exception.base.BaseException;
 import com.dfg.java_template.common.exception.token.TokenInvalidException;
 import com.dfg.java_template.common.exception.token.TokenRequiredException;
 import com.dfg.java_template.framework.redis.RedisCache;
@@ -10,6 +12,8 @@ import com.dfg.java_template.framework.security.core.AuthenticationContextHolder
 import com.dfg.java_template.framework.security.param.LoginUser;
 import com.dfg.java_template.framework.security.service.TokenService;
 import com.dfg.java_template.framework.security.util.SecurityUtils;
+import com.dfg.java_template.framework.util.servlet.ServletUtils;
+import com.dfg.java_template.framework.web.AjaxResult;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -39,38 +43,49 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private RedisCache redisCache;
 
     @Override
-    protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain chain) throws ServletException, IOException {
-        LoginUser loginUser = new LoginUser();
-        if (!isVerifyRequest(request)) {
-            chain.doFilter(request, response);
-            return;
-        }
-        String token = tokenService.getToken(request, response);
-        if (ObjectUtil.isEmpty(token)) {
-            throw new TokenRequiredException();
-        }
-        if (ObjectUtil.isNotEmpty(token) && ObjectUtil.isEmpty(SecurityUtils.getAuthentication())) {
-            Claims claims = tokenService.parseToken(token);
-            boolean flag = tokenService.verifyToken(token);
-            if (!flag) {
-                throw new TokenInvalidException();
+    public void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain chain) throws ServletException, IOException {
+        try {
+            LoginUser loginUser = new LoginUser();
+            if (!isVerifyRequest(request)) {
+                chain.doFilter(request, response);
+                return;
             }
-            String userId = claims.get("userId", String.class);
-            String role = claims.get("role", String.class);
+            String token = tokenService.getToken(request, response);
+            if (ObjectUtil.isEmpty(token)) {
+                throw new TokenRequiredException();
+//                throw new ServiceException(ServiceErrorEnum.TOKEN_EMPTY);
+            }
+            if (ObjectUtil.isNotEmpty(token) && ObjectUtil.isEmpty(SecurityUtils.getAuthentication())) {
+                Claims claims = tokenService.parseToken(token);
+                boolean flag = tokenService.verifyToken(token);
+                if (!flag) {
+                    throw new TokenInvalidException();
+//                    throw new ServiceException(ServiceErrorEnum.TOKEN_INVALID);
+                }
+                String userId = claims.get("userId", String.class);
+                String role = claims.get("role", String.class);
 
-            if (LoginRole.FRONT_ROLE.getCode().equals(role)) {
-                loginUser = redisCache.getCacheObject(CacheConstants.LOGIN_USER + CacheConstants.FRONT_KEY + userId);
-                AuthenticationContextHolder.setFrontUserId(userId);
+                if (LoginRole.FRONT_ROLE.getCode().equals(role)) {
+                    loginUser = redisCache.getCacheObject(CacheConstants.LOGIN_USER + CacheConstants.FRONT_KEY + userId);
+                    AuthenticationContextHolder.setFrontUserId(userId);
+                }
+                if (LoginRole.BACK_ROLE.getCode().equals(role)) {
+                    loginUser = redisCache.getCacheObject(CacheConstants.LOGIN_USER + CacheConstants.BACK_KEY + userId);
+                    AuthenticationContextHolder.setBackUserId(userId);
+                }
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
-            if (LoginRole.BACK_ROLE.getCode().equals(role)) {
-                loginUser = redisCache.getCacheObject(CacheConstants.LOGIN_USER + CacheConstants.BACK_KEY + userId);
-                AuthenticationContextHolder.setBackUserId(userId);
-            }
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            chain.doFilter(request, response);
+        } catch (BaseException e) {
+            System.out.println(e.getMessage());
+            ServletUtils.renderString(response, JSON.toJSONString(
+                            new AjaxResult(e.getCode(), e.getMessage())
+                    )
+            );
+            return; // 终止过滤器链
         }
-        chain.doFilter(request, response);
     }
 
     private boolean isVerifyRequest(HttpServletRequest request) {

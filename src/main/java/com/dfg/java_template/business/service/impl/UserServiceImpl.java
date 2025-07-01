@@ -206,9 +206,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .set(User::getLastLoginTime, new Date())
                 .set(User::getLastIpAddress, remoteAddr))
         ;
-
         Map<String, Object> claims = new HashMap<>();
-
         claims.put("userId", userId);
         claims.put("username", loginUser.getUsername());
         claims.put("role", LoginRole.FRONT_ROLE.getCode());
