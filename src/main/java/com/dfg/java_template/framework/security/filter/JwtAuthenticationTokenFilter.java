@@ -79,7 +79,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             }
             chain.doFilter(request, response);
         } catch (BaseException e) {
-            System.out.println(e.getMessage());
+            log.error("\n认证失败\n路径: {} \n异常类型: {}\n原因: {}\n",
+                    request.getRequestURI(),
+                    e.getClass().getSimpleName(),
+                    e.getMessage());
             ServletUtils.renderString(response, JSON.toJSONString(
                             new AjaxResult(e.getCode(), e.getMessage())
                     )

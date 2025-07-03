@@ -31,7 +31,7 @@ public class SpringSecurityConfig {
      * 认证失败处理类
      */
     @Resource
-    private AuthenticationEntryPointImpl unauthorizedHandler;
+    private AuthenticationEntryPointImpl authenticationEntryPointImpl;
     /**
      * JWT过滤器
      */
@@ -73,7 +73,9 @@ public class SpringSecurityConfig {
                 // 禁用CSRF保护
                 .csrf(csrf -> csrf.disable())
                 // 认证失败处理类
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                .exceptionHandling(exception -> 
+                        exception.authenticationEntryPoint(authenticationEntryPointImpl) // 认证失败处理类
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers((headersCustomizer) -> {
                     headersCustomizer.cacheControl(cache -> cache.disable()).frameOptions(options -> options.sameOrigin());

@@ -1,9 +1,9 @@
 package com.dfg.java_template.framework.security.service.login;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.dfg.java_template.business.entity.User;
 import com.dfg.java_template.business.mapper.UserMapper;
+import com.dfg.java_template.business.param.convertor.UserConvertor;
 import com.dfg.java_template.business.param.vo.UserVO;
 import com.dfg.java_template.framework.security.param.LoginUser;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +35,7 @@ public class FrontendUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         //根据用户名查询用户
         User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUserName, username).last("limit 1"));
-        UserVO userVO = new UserVO();
-        BeanUtil.copyProperties(user, userVO);
+        UserVO userVO = UserConvertor.QUERY.entityToVo(user);
         //验证密码
         passwordService.validatePassword(userVO);
         //返回用户信息
