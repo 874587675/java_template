@@ -39,8 +39,8 @@ public class WxPayConfig {
                 .build();
     }
 
-
     
+
     @Data
     public static class PayParams {
         private String MerchantId;

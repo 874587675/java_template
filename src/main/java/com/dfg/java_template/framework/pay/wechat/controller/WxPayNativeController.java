@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/pay/wxpay")
+@RequestMapping("/wxpay/pay")
 @Api(tags = "微信支付管理模块")
 public class WxPayNativeController {
     @Resource

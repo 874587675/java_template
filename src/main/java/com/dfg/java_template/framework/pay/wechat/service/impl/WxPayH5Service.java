@@ -151,8 +151,8 @@ public class WxPayH5Service implements WxPaymentFactory {
         request.setNotifyUrl(wxPayConfig.getPayparams().getNotifyUrl());
         //金额信息
         AmountReq amountReq = new AmountReq();
-        amountReq.setRefund(refund + 0l);
-        amountReq.setTotal(total + 0l);
+        amountReq.setRefund(refund + 0L);
+        amountReq.setTotal(total + 0L);
         amountReq.setCurrency("CNY");
         request.setAmount(amountReq);
         try {
@@ -176,8 +176,8 @@ public class WxPayH5Service implements WxPaymentFactory {
         request.setNotifyUrl(wxPayConfig.getPayparams().getNotifyUrl());
         //金额信息
         AmountReq amountReq = new AmountReq();
-        amountReq.setRefund(refund + 0l);
-        amountReq.setTotal(total + 0l);
+        amountReq.setRefund(refund + 0L);
+        amountReq.setTotal(total + 0L);
         amountReq.setCurrency("CNY");
         request.setAmount(amountReq);
         try {
