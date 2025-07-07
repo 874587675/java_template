@@ -1,7 +1,7 @@
 package com.dfg.java_template.framework.pay.wechat.common;
 
 
-import com.dfg.java_template.framework.pay.wechat.vo.WeChatJsapiPayVO;
+import com.dfg.java_template.framework.pay.wechat.dto.WeChatJsapiPayDTO;
 
 /**
  * @ClassName:WxPayCommon
@@ -16,7 +16,7 @@ public class WxPayCommon {
     public static final String WECHATPAY_TIMESTAMP = "Wechatpay-Timestamp";
     public static final String WECHATPAY_SIGN_TYPE = "Wechatpay-Signature-Type";
     
-    public static String getWxPayCacheKey(WeChatJsapiPayVO weChatJsapiPayVO) {
-        return weChatJsapiPayVO.getPayer().getOpenid() + "/" + weChatJsapiPayVO.getOutTradeNo();
+    public static String getWxPayCacheKey(WeChatJsapiPayDTO weChatJsapiPayDTO) {
+        return weChatJsapiPayDTO.getPayer().getOpenid() + "/" + weChatJsapiPayDTO.getOutTradeNo();
     }
 }

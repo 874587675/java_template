@@ -2,7 +2,7 @@ package com.dfg.java_template.framework.pay.wechat.controller;
 
 
 import com.dfg.java_template.framework.pay.wechat.service.impl.WxPayJsapiService;
-import com.dfg.java_template.framework.pay.wechat.vo.WeChatJsapiPayVO;
+import com.dfg.java_template.framework.pay.wechat.dto.WeChatJsapiPayDTO;
 import com.dfg.java_template.framework.web.R;
 import com.wechat.pay.java.service.payments.model.Transaction;
 import com.wechat.pay.java.service.refund.model.Refund;
@@ -24,8 +24,8 @@ public class WxPayJsapiController {
     
     @PostMapping("/jsapi/wxPay")
     @ApiOperation("微信JSAPI环境支付订单")
-    public R<Map<String, String>> wxPay(@RequestBody WeChatJsapiPayVO WeChatJsapiPayVO) throws Exception {
-        return R.ok(wxPayJsapiService.wxPay(WeChatJsapiPayVO));
+    public R<Map<String, String>> wxPay(@RequestBody WeChatJsapiPayDTO WeChatJsapiPayDTO) throws Exception {
+        return R.ok(wxPayJsapiService.wxPay(WeChatJsapiPayDTO));
     }
     
     @GetMapping("/jsapi/queryOrderByTransactionId")

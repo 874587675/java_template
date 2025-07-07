@@ -7,7 +7,7 @@ import com.dfg.java_template.framework.pay.wechat.common.WxPayCommon;
 import com.dfg.java_template.framework.pay.wechat.config.WxPayConfig;
 import com.dfg.java_template.framework.pay.wechat.service.WxPaymentFactory;
 import com.dfg.java_template.framework.pay.wechat.util.WxPayUtil;
-import com.dfg.java_template.framework.pay.wechat.vo.WeChatJsapiPayVO;
+import com.dfg.java_template.framework.pay.wechat.dto.WeChatJsapiPayDTO;
 import com.dfg.java_template.framework.redis.RedisCache;
 import com.wechat.pay.java.core.RSAPublicKeyConfig;
 import com.wechat.pay.java.core.notification.NotificationParser;
@@ -47,13 +47,13 @@ public class WxPayJsapiService implements WxPaymentFactory {
     /**
      * 调用微信写好的
      *
-     * @param weChatJsapiPayVO
+     * @param weChatJsapiPayDTO
      * @return
      * @throws Exception
      */
-    public Map<String, String> wxPay(WeChatJsapiPayVO weChatJsapiPayVO) throws Exception {
+    public Map<String, String> wxPay(WeChatJsapiPayDTO weChatJsapiPayDTO) throws Exception {
 //        String openId = "ou6YH41g7ceN1XECAoVaCgKeYAco";
-        Map<String, String> oldPayReturnMap = redisCache.getCacheObject(WxPayCommon.getWxPayCacheKey(weChatJsapiPayVO));
+        Map<String, String> oldPayReturnMap = redisCache.getCacheObject(WxPayCommon.getWxPayCacheKey(weChatJsapiPayDTO));
         if (oldPayReturnMap != null) {
             return oldPayReturnMap;
         }
@@ -63,9 +63,9 @@ public class WxPayJsapiService implements WxPaymentFactory {
         //基础信息
         request.setAppid(wxPayConfig.getPayparams().getAppId());
         request.setMchid(wxPayConfig.getPayparams().getMerchantId());
-        request.setDescription(weChatJsapiPayVO.getDescription());     //商品信息描述
+        request.setDescription(weChatJsapiPayDTO.getDescription());     //商品信息描述
         request.setNotifyUrl(wxPayConfig.getPayparams().getNotifyUrl());    // 设置回调地址
-        request.setOutTradeNo(weChatJsapiPayVO.getOutTradeNo());
+        request.setOutTradeNo(weChatJsapiPayDTO.getOutTradeNo());
 
         //订单金额信息
         Amount amount = new Amount();
@@ -75,14 +75,14 @@ public class WxPayJsapiService implements WxPaymentFactory {
         //用户在直连商户appid下的唯一标识。 下单前需获取到用户的Openid
 
         Payer payer = new Payer();
-        payer.setOpenid(weChatJsapiPayVO.getPayer().getOpenid());
+        payer.setOpenid(weChatJsapiPayDTO.getPayer().getOpenid());
         request.setPayer(payer);
         try {
             PrepayWithRequestPaymentResponse response = service.prepayWithRequestPayment(request);
             log.info("JSAPI下单-结果：{}", JSON.toJSONString(response));
             Map<String, String> payReturnMap = wxPayUtil.getPayReturnMap(response);
             // 将支付信息存入数据库
-            redisCache.setCacheObject(WxPayCommon.getWxPayCacheKey(weChatJsapiPayVO), payReturnMap);
+            redisCache.setCacheObject(WxPayCommon.getWxPayCacheKey(weChatJsapiPayDTO), payReturnMap);
             return payReturnMap;
         } catch (Exception e) {
             e.printStackTrace();

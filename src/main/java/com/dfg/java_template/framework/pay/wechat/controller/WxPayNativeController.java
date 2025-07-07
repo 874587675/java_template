@@ -2,7 +2,7 @@ package com.dfg.java_template.framework.pay.wechat.controller;
 
 
 import com.dfg.java_template.framework.pay.wechat.service.impl.WxpayNativeService;
-import com.dfg.java_template.framework.pay.wechat.vo.WeChatNativePayVO;
+import com.dfg.java_template.framework.pay.wechat.dto.WeChatNativePayDTO;
 import com.dfg.java_template.framework.web.R;
 import com.wechat.pay.java.service.payments.model.Transaction;
 import com.wechat.pay.java.service.refund.model.Refund;
@@ -24,8 +24,8 @@ public class WxPayNativeController {
 
     @PostMapping("/native/wxPay")
     @ApiOperation("微信Native环境支付订单")
-    public R<Map<String, String>> wxPay(@RequestBody WeChatNativePayVO weChatNativePayVO) throws Exception {
-        return R.ok(wxpayNativeService.wxPay(weChatNativePayVO));
+    public R<Map<String, String>> wxPay(@RequestBody WeChatNativePayDTO weChatNativePayDTO) throws Exception {
+        return R.ok(wxpayNativeService.wxPay(weChatNativePayDTO));
     }
 
     @GetMapping("/native/queryOrderByTransactionId")

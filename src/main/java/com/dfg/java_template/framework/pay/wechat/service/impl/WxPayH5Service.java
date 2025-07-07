@@ -7,7 +7,7 @@ import com.dfg.java_template.framework.pay.wechat.common.WxPayCommon;
 import com.dfg.java_template.framework.pay.wechat.config.WxPayConfig;
 import com.dfg.java_template.framework.pay.wechat.service.WxPaymentFactory;
 import com.dfg.java_template.framework.pay.wechat.util.WxPayUtil;
-import com.dfg.java_template.framework.pay.wechat.vo.WeChatH5PayVO;
+import com.dfg.java_template.framework.pay.wechat.dto.WeChatH5PayDTO;
 import com.dfg.java_template.framework.redis.RedisCache;
 import com.wechat.pay.java.core.RSAPublicKeyConfig;
 import com.wechat.pay.java.core.notification.NotificationParser;
@@ -44,8 +44,8 @@ public class WxPayH5Service implements WxPaymentFactory {
     @Resource
     private RedisCache redisCache;
 
-    public Map<String, String> wxPay(WeChatH5PayVO weChatH5PayVO) throws Exception {
-        log.info("WeChatPayVO: {}", weChatH5PayVO);
+    public Map<String, String> wxPay(WeChatH5PayDTO weChatH5PayDTO) throws Exception {
+        log.info("WeChatPayVO: {}", weChatH5PayDTO);
         log.info("H5下单-开始");
 //        Map<String, String> oldPayReturnMap = redisCache.getCacheObject(WxPayCommon.getWxPayCacheKey(weChatPayVO));
 //        if (oldPayReturnMap != null) {
@@ -58,9 +58,9 @@ public class WxPayH5Service implements WxPaymentFactory {
         //基础信息
         request.setAppid(wxPayConfig.getPayparams().getAppId());
         request.setMchid(wxPayConfig.getPayparams().getMerchantId());
-        request.setDescription(weChatH5PayVO.getDescription());//商品描述
+        request.setDescription(weChatH5PayDTO.getDescription());//商品描述
 //        request.setDescription("测试商品");//商品描述
-        request.setOutTradeNo(weChatH5PayVO.getOutTradeNo());//商户系统内部订单号
+        request.setOutTradeNo(weChatH5PayDTO.getOutTradeNo());//商户系统内部订单号
         request.setNotifyUrl(wxPayConfig.getPayparams().getNotifyUrl());
         //订单金额信息
         Amount amount = new Amount();

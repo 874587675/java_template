@@ -20,7 +20,7 @@
         <minio.version>8.5.17</minio.version>
         <kuaidi100.version>1.0.11</kuaidi100.version>
         <alipayv2.version>4.40.21.ALL</alipayv2.version>
-        <wechatpay.version>0.2.16</wechatpay.version>
+        <wechatpay.version>0.2.17</wechatpay.version>
         <binarywang.version>4.7.0</binarywang.version>
         <aliocr.version>3.0.3</aliocr.version>
         <alidysms.version>3.0.1</alidysms.version>
@@ -43,75 +43,75 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
-        
+
         <!--RabbitMQ-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
-        
+
         <!--Elasticsearch-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
-        
+
         <!--JDBC-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jdbc</artifactId>
         </dependency>
-        
+
         <!--Redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-        
+
         <!--Security-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        
+
         <!--Validation-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-        
+
         <!--Logback-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
-        
+
         <!--AOP-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
             <version>${aop.version}</version>
         </dependency>
-        
+
         <!--Web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        
+
         <!--WebSocket-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
-        
+
         <!--mybatis-plus-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
-        
+
         <!--mybatis-plus分页-->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -146,28 +146,28 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
-        
+
         <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        
+
         <!--hutool-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
         </dependency>
-        
+
         <!-- JSON解析器 -->
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
             <artifactId>fastjson2</artifactId>
             <version>${fastjson2.version}</version>
         </dependency>
-        
+
         <!--knife4j-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
@@ -187,7 +187,7 @@
             <version>${mapstruct-processor.version}</version>
         </dependency>
 
-        
+
         <!--test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -205,7 +205,7 @@
             <scope>test</scope>
         </dependency>
         <!--test-->
-        
+
 
         <!--JWT模块========================================================================= -->
 
@@ -323,7 +323,7 @@
             <artifactId>wechatpay-java</artifactId>
             <version>${wechatpay.version}</version>
         </dependency>
-        
+
         <!--支付模块========================================================================= -->
 
         <!--微信业务模块========================================================================= -->
@@ -340,7 +340,7 @@
             <artifactId>weixin-java-mp</artifactId>
             <version>${binarywang.version}</version>
         </dependency>
-        
+
         <!--微信开放平台：weixin-java-open-->
         <dependency>
             <groupId>com.github.binarywang</groupId>
@@ -348,7 +348,6 @@
             <version>${binarywang.version}</version>
         </dependency>
         <!--微信业务模块========================================================================= -->
-
 
 
     </dependencies>

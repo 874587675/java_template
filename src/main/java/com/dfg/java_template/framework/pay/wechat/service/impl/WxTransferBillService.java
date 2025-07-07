@@ -1,41 +1,43 @@
 package com.dfg.java_template.framework.pay.wechat.service.impl;
 
-import cn.hutool.json.JSONUtil;
+import cn.hutool.core.io.IoUtil;
+import com.alibaba.fastjson.JSON;
 import com.dfg.java_template.common.exception.ServiceException;
+import com.dfg.java_template.framework.pay.wechat.common.WxPayCommon;
 import com.dfg.java_template.framework.pay.wechat.config.WxPayConfig;
+import com.dfg.java_template.framework.pay.wechat.param.request.CancelTransferBillsRequest;
+import com.dfg.java_template.framework.pay.wechat.param.request.GetTransferBillByNoRequest;
+import com.dfg.java_template.framework.pay.wechat.param.request.GetTransferBillByOutNoRequest;
 import com.dfg.java_template.framework.pay.wechat.param.request.TransferBillsRequest;
+import com.dfg.java_template.framework.pay.wechat.param.response.CancelTransferBillResponse;
+import com.dfg.java_template.framework.pay.wechat.param.response.GetTransferBillResponse;
 import com.dfg.java_template.framework.pay.wechat.param.response.TransferBillResponse;
+import com.dfg.java_template.framework.pay.wechat.service.WxTransferBillFactory;
+import com.dfg.java_template.framework.pay.wechat.service.base.TransferBillService;
 import com.wechat.pay.java.core.RSAPublicKeyConfig;
-import com.wechat.pay.java.core.http.*;
+import com.wechat.pay.java.core.notification.NotificationParser;
+import com.wechat.pay.java.core.notification.RequestParam;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.OkHttpClient;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Slf4j
 @Service
-public class WxTransferBillService {
+public class WxTransferBillService implements WxTransferBillFactory {
     @Resource
     private WxPayConfig wxPayConfig;
-    public String transfer(String outBillNo, String openId, BigDecimal amount) {
-        RSAPublicKeyConfig config = wxPayConfig.rSAPublicKeyConfig();
+    @Resource
+    private RSAPublicKeyConfig config;
 
-        OkHttpClient okHttpClient = new OkHttpClient();
-        HttpClient httpClient = new DefaultHttpClientBuilder()
-                .config(config)
-                .okHttpClient(okHttpClient)
-                .build();
+    @Override
+    public TransferBillResponse transfer(String outBillNo, String openId, BigDecimal amount) {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.addHeader("Accept", MediaType.APPLICATION_JSON_VALUE);
-        headers.addHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-        headers.addHeader("Wechatpay-Serial", "PUB_KEY_ID_" + wxPayConfig.getPayparams().getPublicId());
-        
-        
+        TransferBillService transferBillService = new TransferBillService.Builder().config(config).build();
         // 构建请求对象
         TransferBillsRequest request = new TransferBillsRequest();
         request.setAppId(wxPayConfig.getPayparams().getAppId());
@@ -43,7 +45,7 @@ public class WxTransferBillService {
         request.setTransferSceneId("1005"); //转账场景ID 1005 
         request.setOpenId(openId);
         request.setTransferAmount(amount.multiply(BigDecimal.valueOf(100)).intValue());
-        request.setTransferRemark("特客星球");
+        request.setTransferRemark("XXXX");
 
         // 构造转账场景报备信息
         List<TransferBillsRequest.TransferSceneReportInfo> reportInfos = List.of(
@@ -51,28 +53,82 @@ public class WxTransferBillService {
                 new TransferBillsRequest.TransferSceneReportInfo("报酬说明", "佣金发放")
         );
         request.setTransferSceneReportInfos(reportInfos);
-
-        // 序列化请求体
-        JsonRequestBody body = new JsonRequestBody.Builder()
-                .body(JSONUtil.toJsonStr(request))
-                .build();
-
-        HttpRequest httpRequest = new HttpRequest.Builder()
-                .httpMethod(HttpMethod.POST)
-                .url("https://api.mch.weixin.qq.com/v3/fund-app/mch-transfer/transfer-bills")
-                .headers(headers)
-                .body(body)
-                .build();
-
         try {
-            HttpResponse<TransferBillResponse> response = httpClient.execute(httpRequest, TransferBillResponse.class);
-            TransferBillResponse responseBody = response.getServiceResponse();
-            log.info("发起转账返回：{}", JSONUtil.toJsonStr(responseBody));
-            return responseBody.getPackageInfo();
+            TransferBillResponse transferBillResponse = transferBillService.transfer(request);
+            log.info("商家转账响应:{}",transferBillResponse);
+            return transferBillResponse;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServiceException("提现异常");
+            throw new ServiceException("商家转账异常");
         }
     }
 
+    @Override
+    public CancelTransferBillResponse cancelTransfer(String outBillNo) {
+        TransferBillService transferBillService = new TransferBillService.Builder().config(config).build();
+        try {
+            CancelTransferBillsRequest cancelTransferBillsRequest = new CancelTransferBillsRequest();
+            cancelTransferBillsRequest.setOutBillNo(outBillNo);
+            
+            CancelTransferBillResponse cancelTransferBillResponse = transferBillService.cancelTransfer(cancelTransferBillsRequest);
+            log.info("商家撤销转账响应:{}",cancelTransferBillResponse);
+            return cancelTransferBillResponse;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ServiceException("撤销转账异常");
+        }
+    }
+
+    @Override
+    public GetTransferBillResponse getTransferBillByOutNo(String outBillNo) {
+        TransferBillService transferBillService = new TransferBillService.Builder().config(config).build();
+        try {
+            GetTransferBillByOutNoRequest getTransferBillByOutNoRequest = new GetTransferBillByOutNoRequest();
+            getTransferBillByOutNoRequest.setOutBillNo(outBillNo);
+            GetTransferBillResponse getTransferBillResponse = transferBillService.getTransferBillByOutNo(getTransferBillByOutNoRequest);
+            log.info("商户单号查询转账单响应:{}",getTransferBillResponse);
+            return getTransferBillResponse;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ServiceException("商户单号查询转账单异常");
+        }
+    }
+
+    @Override
+    public GetTransferBillResponse getTransferBillByNo(String transferBillNo) {
+        TransferBillService transferBillService = new TransferBillService.Builder().config(config).build();
+        try {
+            GetTransferBillByNoRequest request = new GetTransferBillByNoRequest(transferBillNo);
+            GetTransferBillResponse getTransferBillResponse = transferBillService.getTransferBillByNo(request);
+            log.info("微信单号查询转账单响应:{}", getTransferBillResponse);
+            return getTransferBillResponse;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ServiceException("微信单号查询转账单异常");
+        }
+    }
+
+    @Override
+    public GetTransferBillResponse notify(HttpServletRequest request, HttpServletResponse response) {
+        log.info("商家转账通知回调-开始");
+        try {
+            String body = IoUtil.getUtf8Reader(request.getInputStream()).readLine();
+            RequestParam requestParam = new RequestParam.Builder()
+                    .serialNumber(request.getHeader(WxPayCommon.WECHATPAY_SERIAL))
+                    .nonce(request.getHeader(WxPayCommon.WECHATPAY_NONCE))
+                    .signature(request.getHeader(WxPayCommon.WECHATPAY_SIGNATURE))
+                    .timestamp(request.getHeader(WxPayCommon.WECHATPAY_TIMESTAMP))
+                    .signType(request.getHeader(WxPayCommon.WECHATPAY_SIGN_TYPE))
+                    .body(body)
+                    .build();
+            NotificationParser parser = new NotificationParser(config);
+            // 以商家转账通知回调为例，验签、解密并转换成 GetTransferBillResponse
+            GetTransferBillResponse getTransferBillResponse = parser.parse(requestParam, GetTransferBillResponse.class);
+            log.info("商家转账通知回调-结束：{}", JSON.toJSONString(getTransferBillResponse));
+            return getTransferBillResponse;
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ServiceException("商家转账通知回调-异常");
+        }
+    }
 }

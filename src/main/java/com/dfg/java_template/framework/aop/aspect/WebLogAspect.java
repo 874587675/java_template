@@ -8,6 +8,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.MDC;
+import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -24,7 +26,7 @@ import java.util.Date;
 @Component
 @Slf4j
 public class WebLogAspect {
-    
+    private static final ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
     
     @Pointcut("execution(public * com.dfg.java_template.business.controller.*.*.*(..))")
     public void controllerWebLog() {
@@ -44,7 +46,6 @@ public class WebLogAspect {
         if (attributes == null) {
             return proceedingJoinPoint.proceed(); // 如果没有请求上下文，直接执行方法
         }
-        
         long startTime = System.currentTimeMillis();    //接口开始的时间戳
         HttpServletRequest request = attributes.getRequest();
         log.info("《================================================================请求开始================================================================》");

@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
-@RequestMapping("/api/v1/common")
+@RequestMapping("/api/v1/upload/common")
 @RestController
 @Api(tags = "上传文件模块")
 public class UploadController {

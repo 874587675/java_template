@@ -7,7 +7,7 @@ import com.dfg.java_template.framework.pay.wechat.common.WxPayCommon;
 import com.dfg.java_template.framework.pay.wechat.config.WxPayConfig;
 import com.dfg.java_template.framework.pay.wechat.service.WxPaymentFactory;
 import com.dfg.java_template.framework.pay.wechat.util.WxPayUtil;
-import com.dfg.java_template.framework.pay.wechat.vo.WeChatNativePayVO;
+import com.dfg.java_template.framework.pay.wechat.dto.WeChatNativePayDTO;
 import com.wechat.pay.java.core.RSAPublicKeyConfig;
 import com.wechat.pay.java.core.notification.NotificationParser;
 import com.wechat.pay.java.core.notification.RequestParam;
@@ -42,7 +42,7 @@ public class WxpayNativeService implements WxPaymentFactory {
     private WxPayUtil wxPayUtil;
 
     
-    public Map<String, String> wxPay(WeChatNativePayVO weChatNativePayVO) throws Exception {
+    public Map<String, String> wxPay(WeChatNativePayDTO weChatNativePayDTO) throws Exception {
         log.info("Native下单(扫码支付)-开始");
         // 构建service
         NativePayService service = new NativePayService.Builder().config(config).build();
@@ -51,8 +51,8 @@ public class WxpayNativeService implements WxPaymentFactory {
         //基础信息
         request.setAppid(wxPayConfig.getPayparams().getAppId());
         request.setMchid(wxPayConfig.getPayparams().getMerchantId());
-        request.setDescription(weChatNativePayVO.getDescription());//商品描述
-        request.setOutTradeNo(weChatNativePayVO.getOutTradeNo());//商户系统内部订单号
+        request.setDescription(weChatNativePayDTO.getDescription());//商品描述
+        request.setOutTradeNo(weChatNativePayDTO.getOutTradeNo());//商户系统内部订单号
         request.setNotifyUrl(wxPayConfig.getPayparams().getNotifyUrl());
         //订单金额信息
         Amount amount = new Amount();
