@@ -13,7 +13,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.6.13</spring-boot.version>
         <aop.version>2.6.11</aop.version>
-
         <!--third-plugin-->
         <filestorage.version>2.2.1</filestorage.version>
         <alioss.version>3.18.1</alioss.version>

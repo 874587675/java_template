@@ -2,7 +2,7 @@ package com.dfg.java_template.common.exception.base;
 
 
 import cn.hutool.core.util.ObjectUtil;
-import com.dfg.java_template.framework.util.message.MessageUtils;
+import com.dfg.java_template.common.util.message.MessageUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

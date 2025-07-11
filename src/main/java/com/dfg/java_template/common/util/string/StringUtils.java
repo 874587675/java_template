@@ -1,4 +1,4 @@
-package com.dfg.java_template.framework.util.string;
+package com.dfg.java_template.common.util.string;
 
 import cn.hutool.core.util.ObjectUtil;
 

@@ -2,8 +2,8 @@ package com.dfg.java_template.framework.security.handle;
 
 import com.alibaba.fastjson2.JSON;
 import com.dfg.java_template.common.constant.HttpStatus;
-import com.dfg.java_template.framework.util.servlet.ServletUtils;
-import com.dfg.java_template.framework.web.AjaxResult;
+import com.dfg.java_template.common.util.servlet.ServletUtils;
+import com.dfg.java_template.common.web.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

@@ -4,17 +4,21 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
-import java.io.Serial;
 
 /**
-* 用户信息表实体类对象
-*
-* @author zgc
-* @since 2025-07-01 15:18:53
-*/
+ * 用户信息表实体类对象
+ *
+ * @author zgc
+ * @since 2025-07-01 15:18:53
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -22,9 +26,9 @@ import java.io.Serial;
 @TableName(value = "t_user")
 @ApiModel(value = "User对象", description = "用户信息表")
 public class User implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
+    
     @ApiModelProperty(value = "用户ID")
     @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private String userId;

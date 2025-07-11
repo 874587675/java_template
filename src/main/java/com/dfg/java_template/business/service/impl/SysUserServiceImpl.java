@@ -23,7 +23,7 @@ import com.dfg.java_template.framework.security.constant.LoginRole;
 import com.dfg.java_template.framework.security.core.AuthenticationContextHolder;
 import com.dfg.java_template.framework.security.param.LoginBody;
 import com.dfg.java_template.framework.security.param.LoginUser;
-import com.dfg.java_template.framework.security.service.TokenService;
+import com.dfg.java_template.framework.security.service.token.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -8,14 +8,6 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
 
-/**
- * @program: RuoYi-Vue-fast
- * @ClassName WxMaConfig
- * @description:
- * @author: zgc
- * @date: 2025-04-02 21:12
- * @Version 1.0
- **/
 @Configuration
 public class WxMaSelfConfig {
     @Resource

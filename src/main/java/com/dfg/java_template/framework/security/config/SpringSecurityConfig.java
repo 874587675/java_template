@@ -37,7 +37,7 @@ public class SpringSecurityConfig {
      */
     @Resource
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
-    
+
     @Resource
     private UserDetailsService frontendUserDetailsService;
 
@@ -66,34 +66,27 @@ public class SpringSecurityConfig {
         return new ProviderManager(backendProvider);
     }
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 // 禁用CSRF保护
                 .csrf(csrf -> csrf.disable())
                 // 认证失败处理类
-                .exceptionHandling(exception -> 
-                        exception.authenticationEntryPoint(authenticationEntryPointImpl) // 认证失败处理类
-                )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .headers((headersCustomizer) -> {
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPointImpl) // 认证失败处理类
+                ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).headers((headersCustomizer) -> {
                     headersCustomizer.cacheControl(cache -> cache.disable()).frameOptions(options -> options.sameOrigin());
                 })
                 // 授权配置
                 .authorizeHttpRequests(requests -> {
                     //放行swagger相关接口
-                    requests.antMatchers("/**/back/**", "/**/front/**").authenticated()
-                            .anyRequest().permitAll();  // 其余请求放行
+                    requests.antMatchers("/**/back/**", "/**/front/**").authenticated().anyRequest().permitAll();  // 其余请求放行
                 })
                 // 先添加JWT过滤器
                 .addFilterAfter(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 添加CORS过滤器
-                .addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class)
-                .build();
+                .addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class).build();
     }
-    
-    
+
 
     /**
      * 强散列哈希加密实现

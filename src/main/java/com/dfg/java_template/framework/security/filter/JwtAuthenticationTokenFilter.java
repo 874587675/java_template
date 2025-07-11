@@ -10,10 +10,10 @@ import com.dfg.java_template.framework.redis.RedisCache;
 import com.dfg.java_template.framework.security.constant.LoginRole;
 import com.dfg.java_template.framework.security.core.AuthenticationContextHolder;
 import com.dfg.java_template.framework.security.param.LoginUser;
-import com.dfg.java_template.framework.security.service.TokenService;
+import com.dfg.java_template.framework.security.service.token.TokenService;
 import com.dfg.java_template.framework.security.util.SecurityUtils;
-import com.dfg.java_template.framework.util.servlet.ServletUtils;
-import com.dfg.java_template.framework.web.AjaxResult;
+import com.dfg.java_template.common.util.servlet.ServletUtils;
+import com.dfg.java_template.common.web.AjaxResult;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -53,14 +53,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             String token = tokenService.getToken(request, response);
             if (ObjectUtil.isEmpty(token)) {
                 throw new TokenRequiredException();
-//                throw new ServiceException(ServiceErrorEnum.TOKEN_EMPTY);
             }
             if (ObjectUtil.isNotEmpty(token) && ObjectUtil.isEmpty(SecurityUtils.getAuthentication())) {
                 Claims claims = tokenService.parseToken(token);
                 boolean flag = tokenService.verifyToken(token);
                 if (!flag) {
                     throw new TokenInvalidException();
-//                    throw new ServiceException(ServiceErrorEnum.TOKEN_INVALID);
                 }
                 String userId = claims.get("userId", String.class);
                 String role = claims.get("role", String.class);

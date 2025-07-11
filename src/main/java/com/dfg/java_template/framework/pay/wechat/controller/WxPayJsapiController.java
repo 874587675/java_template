@@ -3,7 +3,7 @@ package com.dfg.java_template.framework.pay.wechat.controller;
 
 import com.dfg.java_template.framework.pay.wechat.service.impl.WxPayJsapiService;
 import com.dfg.java_template.framework.pay.wechat.dto.WeChatJsapiPayDTO;
-import com.dfg.java_template.framework.web.R;
+import com.dfg.java_template.common.web.R;
 import com.wechat.pay.java.service.payments.model.Transaction;
 import com.wechat.pay.java.service.refund.model.Refund;
 import com.wechat.pay.java.service.refund.model.RefundNotification;

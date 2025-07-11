@@ -10,7 +10,7 @@ import com.dfg.java_template.business.param.update.SysUserUpdateParam;
 import com.dfg.java_template.business.param.vo.SysUserVO;
 import com.dfg.java_template.business.service.SysUserService;
 import com.dfg.java_template.framework.security.param.LoginBody;
-import com.dfg.java_template.framework.web.R;
+import com.dfg.java_template.common.web.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;

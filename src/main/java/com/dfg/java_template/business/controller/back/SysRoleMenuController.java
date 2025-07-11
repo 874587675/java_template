@@ -9,7 +9,7 @@ import com.dfg.java_template.business.param.save.SysRoleMenuSaveParam;
 import com.dfg.java_template.business.param.update.SysRoleMenuUpdateParam;
 import com.dfg.java_template.business.param.vo.SysRoleMenuVO;
 import com.dfg.java_template.business.service.SysRoleMenuService;
-import com.dfg.java_template.framework.web.R;
+import com.dfg.java_template.common.web.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;

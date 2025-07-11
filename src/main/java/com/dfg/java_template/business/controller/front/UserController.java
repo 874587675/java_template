@@ -9,8 +9,8 @@ import com.dfg.java_template.business.param.save.UserSaveParam;
 import com.dfg.java_template.business.param.update.UserUpdateParam;
 import com.dfg.java_template.business.param.vo.UserVO;
 import com.dfg.java_template.business.service.UserService;
+import com.dfg.java_template.common.web.R;
 import com.dfg.java_template.framework.security.param.LoginBody;
-import com.dfg.java_template.framework.web.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -32,11 +32,12 @@ import java.util.List;
  */
 @Api(value = "用户信息模块", tags = "用户信息模块相关接口")
 @RestController
+
 @RequestMapping("/api/v1/user")
 public class UserController {
     @Resource
     private UserService userService;
-
+    
     @PostMapping(value = "/front/saveUser", produces = "application/json", consumes = "application/json")
     @ApiOperation(value = "新增用户信息", produces = "application/json", consumes = "application/json")
     public R<?> saveUser(@Validated @RequestBody UserSaveParam userSaveParam) {

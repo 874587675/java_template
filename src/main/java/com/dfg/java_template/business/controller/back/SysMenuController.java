@@ -9,7 +9,7 @@ import com.dfg.java_template.business.param.save.SysMenuSaveParam;
 import com.dfg.java_template.business.param.update.SysMenuUpdateParam;
 import com.dfg.java_template.business.param.vo.SysMenuVO;
 import com.dfg.java_template.business.service.SysMenuService;
-import com.dfg.java_template.framework.web.R;
+import com.dfg.java_template.common.web.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;

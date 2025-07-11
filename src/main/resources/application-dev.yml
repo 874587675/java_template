@@ -12,6 +12,14 @@ spring:
     database: 0
     host: 172.25.227.12
     port: 6379
+  rabbitmq: #rabbitMq配置
+    host: 172.25.101.186
+    username: admin
+    password: 123456
+    port: 5672
+    virtual-host: /
+    publisher-confirm-type: correlated  
+    publisher-returns: true
   messages:
     basename: i18n/messages
     encoding: UTF-8

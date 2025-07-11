@@ -1,4 +1,4 @@
-package com.dfg.java_template.framework.web;
+package com.dfg.java_template.common.web;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.dfg.java_template.common.constant.HttpStatus;

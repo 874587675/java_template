@@ -1,4 +1,4 @@
-package com.dfg.java_template.framework.util.servlet;
+package com.dfg.java_template.common.util.servlet;
 
 
 import javax.servlet.http.HttpServletResponse;

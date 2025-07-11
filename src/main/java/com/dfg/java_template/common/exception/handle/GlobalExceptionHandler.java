@@ -1,8 +1,8 @@
-package com.dfg.java_template.framework.exception;
+package com.dfg.java_template.common.exception.handle;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.dfg.java_template.common.exception.ServiceException;
-import com.dfg.java_template.framework.web.AjaxResult;
+import com.dfg.java_template.common.web.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

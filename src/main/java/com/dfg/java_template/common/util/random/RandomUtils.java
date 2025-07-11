@@ -1,4 +1,4 @@
-package com.dfg.java_template.framework.util.random;
+package com.dfg.java_template.common.util.random;
 
 import org.springframework.stereotype.Component;
 

@@ -8,7 +8,7 @@ import com.aliyun.sdk.service.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.sdk.service.dysmsapi20170525.models.SendSmsResponse;
 import com.dfg.java_template.common.constant.CacheConstants;
 import com.dfg.java_template.framework.aliyunplugin.config.AliyunConfig;
-import com.dfg.java_template.framework.util.random.RandomUtils;
+import com.dfg.java_template.common.util.random.RandomUtils;
 import com.dfg.java_template.framework.redis.RedisCache;
 import darabonba.core.client.ClientOverrideConfiguration;
 import lombok.Data;

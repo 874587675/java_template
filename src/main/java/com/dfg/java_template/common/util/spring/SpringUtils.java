@@ -1,4 +1,4 @@
-package com.dfg.java_template.framework.util.spring;
+package com.dfg.java_template.common.util.spring;
 
 import cn.hutool.core.util.ObjectUtil;
 import org.springframework.aop.framework.AopContext;

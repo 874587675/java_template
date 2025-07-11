@@ -1,6 +1,6 @@
-package com.dfg.java_template.framework.util.message;
+package com.dfg.java_template.common.util.message;
 
-import com.dfg.java_template.framework.util.spring.SpringUtils;
+import com.dfg.java_template.common.util.spring.SpringUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 

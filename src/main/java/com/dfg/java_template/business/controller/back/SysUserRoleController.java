@@ -9,7 +9,7 @@ import com.dfg.java_template.business.param.save.SysUserRoleSaveParam;
 import com.dfg.java_template.business.param.update.SysUserRoleUpdateParam;
 import com.dfg.java_template.business.param.vo.SysUserRoleVO;
 import com.dfg.java_template.business.service.SysUserRoleService;
-import com.dfg.java_template.framework.web.R;
+import com.dfg.java_template.common.web.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
